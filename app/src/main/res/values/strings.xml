@@ -4,4 +4,6 @@
     <string name="start_game">Start Game</string>
     <string name="NameText">Enter the name of Player 1 and Player 2</string>
     <string name="namebutton">Start</string>
+    <string name="player1">input player 1 name</string>
+    <string name="player2">input player 2 name</string>
 </resources>
