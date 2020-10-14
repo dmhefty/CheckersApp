@@ -150,7 +150,7 @@ public class CheckerBoard {
         }
 
         for(CheckerPiece piece : pieces){
-            piece.draw(canvas, marginX, marginY, puzzleSize, 0.25f);
+            piece.draw(canvas, marginX, marginY, puzzleSize, scaleFactor);
         }
     }
 
