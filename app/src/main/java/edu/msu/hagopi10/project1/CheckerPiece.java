@@ -105,6 +105,7 @@ public class CheckerPiece {
             canvas.translate(marginX + xIndex * puzzleSize/4 + puzzleSize * 3/16, marginY + yIndex * puzzleSize/8 + puzzleSize/16);
         }
 
+        scaleFactor = (puzzleSize/8.0f)/(float)Math.min(piece.getWidth(), piece.getWidth());
 
         // Scale it to the right size
         canvas.scale(scaleFactor, scaleFactor);
