@@ -24,12 +24,9 @@ public class CheckersView extends View {
      */
     private Paint linePaint;
 
-
     public CheckersView(Context context) {
         super(context);
         init(null, 0);
-
-
     }
 
     public CheckersView(Context context, AttributeSet attrs) {

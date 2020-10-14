@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    public void onStartCheckers(View view) {
+    public void onStartNameActivity(View view) {
         Intent intent = new Intent(this, NameActivity.class);
         startActivity(intent);
     }
