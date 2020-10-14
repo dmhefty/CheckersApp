@@ -74,12 +74,48 @@ public class CheckerPiece {
      */
     final static float SNAP_DISTANCE = 0.05f;
 
-    public CheckerPiece(Context context, int id, float finalX, float finalY) {
-        this.finalX = finalX;
-        this.finalY = finalY;
+    /**
+     * What square the piece is in, starts counting from the top, leftmost, square, counts right
+     * until the end of the row then loops to the leftmost square on the next row and continues
+     * counting
+     */
+    public int locationIndex;
+
+    public CheckerPiece(Context context, int id, int boardIndex) {
+        this.locationIndex = boardIndex;
         this.id = id;
 
         piece = BitmapFactory.decodeResource(context.getResources(), id);
+    }
+
+    public void draw(Canvas canvas, int marginX, int marginY,
+                     int puzzleSize, float scaleFactor){
+
+        int xIndex; int yIndex;
+        xIndex = locationIndex%4;
+        yIndex = locationIndex/4;
+
+        canvas.save();
+
+        // Convert x,y to pixels and add the margin, then draw
+        if( yIndex%2 == 0 ){
+            canvas.translate(marginX + xIndex * puzzleSize/4 + puzzleSize/16, marginY + yIndex * puzzleSize/8 + puzzleSize/16);
+        }
+        else{
+            canvas.translate(marginX + xIndex * puzzleSize/4 + puzzleSize * 3/16, marginY + yIndex * puzzleSize/8 + puzzleSize/16);
+        }
+
+
+        // Scale it to the right size
+        canvas.scale(scaleFactor, scaleFactor);
+
+        // This magic code makes the center of the piece at 0, 0
+        canvas.translate(-piece.getWidth() / 2f, -piece.getHeight() / 2f);
+
+        // Draw the bitmap
+        canvas.drawBitmap(piece, 0, 0, null);
+        canvas.restore();
+
     }
 
 }

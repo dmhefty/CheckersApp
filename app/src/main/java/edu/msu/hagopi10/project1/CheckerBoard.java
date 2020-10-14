@@ -66,7 +66,7 @@ public class CheckerBoard {
     /**
      * Collection of checkerboard pieces
      */
-    public ArrayList<CheckerPiece> pieces = new ArrayList<CheckerPiece>();
+    public ArrayList<CheckerPiece> pieces = new ArrayList< >();
 
     /**
      * This variable is set to a piece we are dragging. If
@@ -91,6 +91,16 @@ public class CheckerBoard {
     private final static String LOCATIONS = "checkerboard.locations";
     private final static String IDS = "checkerboard.ids";
 
+    /**
+     * Paint color we will use to draw dark checker squares
+     */
+    private int darkSquare = 0xff779455;
+
+    /**
+     * Paint color we will use to draw light checker squares
+     */
+    private int lightSquare = 0xffebebd0;
+
     public CheckerBoard(Context context) {
 
         // Create paint for filling the area the checkerboard will
@@ -103,6 +113,76 @@ public class CheckerBoard {
 
 
         // Load the checkerboard pieces
-        pieces.add(new CheckerPiece(context, R.drawable.spartan_green, 0.259f, 0.238f));
+
+        // Load green pieces
+        for(int i = 0; i<12; i++){
+            pieces.add(new CheckerPiece(context, R.drawable.spartan_green, i));
+        }
+
+        // Load white pieces
+        for(int i = 0; i<12; i++){
+            pieces.add(new CheckerPiece(context, R.drawable.spartan_white, 31-i));
+        }
+
     }
+
+    public void draw(Canvas canvas){
+        int wid = canvas.getWidth();
+        int hit = canvas.getHeight();
+
+        // Determine the minimum of the two dimensions
+        int minDim = wid < hit ? wid : hit;
+
+        int puzzleSize = (int)(minDim * SCALE_IN_VIEW);
+
+        // Compute the margins so we center the puzzle
+        int marginX = (wid - puzzleSize) / 2;
+        int marginY = (hit - puzzleSize) / 2;
+        //
+        // Draw the outline of the puzzle
+        //
+
+        canvas.drawRect(marginX, marginY,
+                marginX + puzzleSize, marginY + puzzleSize, fillPaint);
+
+        for(int i = 0; i < 8; i++){
+            drawColumn(canvas, i);
+        }
+
+        for(CheckerPiece piece : pieces){
+            piece.draw(canvas, marginX, marginY, puzzleSize, 0.25f);
+        }
+    }
+
+    public void drawColumn(Canvas canvas, int columnIndex){
+        int wid = canvas.getWidth();
+        int hit = canvas.getHeight();
+
+        // Determine the minimum of the two dimensions
+        int minDim = wid < hit ? wid : hit;
+
+        int puzzleSize = (int)(minDim * SCALE_IN_VIEW);
+
+        // Compute the margins so we center the puzzle
+        int marginX = (wid - puzzleSize) / 2;
+        int marginY = (hit - puzzleSize) / 2;
+
+        for(int i = 0; i< 8; i++){
+             int squareCenterXOffset = marginX + columnIndex * puzzleSize/8;
+             int squareCenterYOffset = marginY + i * puzzleSize/8;
+
+             if ((i + columnIndex) % 2 == 0){
+                 fillPaint.setColor(darkSquare);
+             }
+             else{
+                 fillPaint.setColor(lightSquare);
+             }
+
+            canvas.drawRect(squareCenterXOffset, squareCenterYOffset,
+                    squareCenterXOffset + puzzleSize/8, squareCenterYOffset + puzzleSize/8, fillPaint);
+        }
+    }
+
+
+
 }
