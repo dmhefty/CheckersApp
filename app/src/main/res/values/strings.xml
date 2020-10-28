@@ -6,4 +6,5 @@
     <string name="namebutton">Start</string>
     <string name="player1">input player 1 name</string>
     <string name="player2">input player 2 name</string>
+    <string name="entername">Submit Names</string>
 </resources>
