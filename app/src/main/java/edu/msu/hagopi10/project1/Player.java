@@ -8,13 +8,24 @@ public class Player {
     public ArrayList<CheckerPiece> pieces = new ArrayList<CheckerPiece>();
     // how many pieces the player has left
 private float score;
-private String name;
+private String name1;
+private int playerCtr = 0;
 
-public Player(String name, ArrayList checkers, float score1){
-    this.score = score1;
-    this.pieces = checkers;
-    this.name = name;
-
+public Player( ArrayList checkers, float score1){
+        if(playerCtr == 0) {
+            this.score = score1;
+            this.pieces = checkers;
+            this.name1 = MainActivity.NAME1;
+            playerCtr++;
+        }
+        if(playerCtr ==1){
+            this.score = score1;
+            this.pieces = checkers;
+            this.name1 = MainActivity.NAME2;
+        }
     }
 
 }
+
+
+
