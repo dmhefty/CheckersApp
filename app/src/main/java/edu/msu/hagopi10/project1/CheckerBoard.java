@@ -58,6 +58,9 @@ public class CheckerBoard {
      */
     private float lastRelX;
 
+    //gameSize = int(minDim) * SCALE_IN_VIEW;
+
+    //blockSize = gameSize /8
     /**
      * Most recent relative Y touch when dragging
      */
@@ -143,6 +146,8 @@ public class CheckerBoard {
         // Draw the outline of the puzzle
         //
 
+        scaleFactor = (float)checkerSize;
+
         canvas.drawRect(marginX, marginY,
                 marginX + checkerSize, marginY + checkerSize, fillPaint);
 
@@ -153,8 +158,23 @@ public class CheckerBoard {
         for(CheckerPiece piece : pieces){
             piece.draw(canvas, marginX, marginY, checkerSize, scaleFactor);
         }
-    }
 
+/*
+        if (dragging != null) {
+            dragging.draw_dragging(canvas, blockSize, xCoordinate, yCoordinate);
+        }
+        */
+
+    }
+    /*
+        public draw_dragging(canvas, blockSize, xCoordinate, yCoordinate) {
+            canvas.save();
+
+            canvas.translate(i, i)
+
+                    canvas.scale()
+        }
+    */
     public void drawColumn(Canvas canvas, int columnIndex){
         int wid = canvas.getWidth();
         int hit = canvas.getHeight();
@@ -199,8 +219,8 @@ public class CheckerBoard {
                 //PuzzlePiece t = pieces.get(pieces.size()-1);
                 //pieces.set(p, t);
                 //pieces.set(pieces.size()-1, dragging);
-                pieces.add(pieces.size(), dragging);
-                pieces.remove(p);
+                //pieces.add(pieces.size(), dragging);
+                //pieces.remove(p);
                 return true;
             }
         }
@@ -231,7 +251,6 @@ public class CheckerBoard {
             case MotionEvent.ACTION_DOWN:
                 return onTouched(relX, relY);
 
-
             case MotionEvent.ACTION_UP:
 
             case MotionEvent.ACTION_CANCEL:
@@ -240,7 +259,8 @@ public class CheckerBoard {
             case MotionEvent.ACTION_MOVE:
                 // If we are dragging, move the piece and force a redraw
                 if(dragging != null) {
-                    dragging.move(relX - lastRelX, relY - lastRelY);
+                    //check if valid
+                    dragging.move(lastRelX, lastRelY);
                     lastRelX = relX;
                     lastRelY = relY;
                     view.invalidate();
@@ -259,6 +279,7 @@ public class CheckerBoard {
      */
     private boolean onReleased(View view, float x, float y) {
 
+        dragging.move(lastRelX, lastRelY);
         if(dragging != null) {
             dragging = null;
             return true;

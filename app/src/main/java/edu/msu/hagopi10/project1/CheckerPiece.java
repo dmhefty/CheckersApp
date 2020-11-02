@@ -131,6 +131,7 @@ public class CheckerPiece {
                        int puzzleSize, float scaleFactor) {
 
         // Make relative to the location and size to the piece size
+
         int pX = (int)((testX - x) * puzzleSize / scaleFactor) +
                 piece.getWidth() / 2;
         int pY = (int)((testY - y) * puzzleSize / scaleFactor) +
@@ -144,6 +145,7 @@ public class CheckerPiece {
         // We are within the rectangle of the piece.
         // Are we touching actual picture?
         return (piece.getPixel(pX, pY) & 0xff000000) != 0;
+
     }
 
     /**
