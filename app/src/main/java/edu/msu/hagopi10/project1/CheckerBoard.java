@@ -101,6 +101,7 @@ public class CheckerBoard {
      */
     private int lightSquare = 0xffebebd0;
 
+
     public CheckerBoard(Context context) {
 
         // Create paint for filling the area the checkerboard will
@@ -190,9 +191,16 @@ public class CheckerBoard {
         for(int p=pieces.size()-1; p>=0;  p--) {
             if(pieces.get(p).hit(x, y, checkerSize, scaleFactor)) {
                 // We hit a piece!
+
+                //dragging = pieces.get(pieces.size()-1);
                 dragging = pieces.get(p);
                 lastRelX = x;
                 lastRelY = y;
+                //PuzzlePiece t = pieces.get(pieces.size()-1);
+                //pieces.set(p, t);
+                //pieces.set(pieces.size()-1, dragging);
+                pieces.add(pieces.size(), dragging);
+                pieces.remove(p);
                 return true;
             }
         }

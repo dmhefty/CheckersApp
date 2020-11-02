@@ -23,7 +23,8 @@ import java.security.Policy;
 public class CheckersView extends View {
 
 
-    CheckerBoard board;
+    private CheckerBoard board;
+
 
     /**
      * Paint object we will use to draw a line
@@ -61,11 +62,6 @@ public class CheckersView extends View {
     private Bitmap hatBitmap = null;
 
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-       // return CheckerBoard.onTouchEvent(this, event);
-        return true;
-    }
 
     private static class Parameters implements Serializable {
         /**
@@ -159,12 +155,12 @@ public class CheckersView extends View {
 
     private void init(AttributeSet attrs, int defStyle) {
         board = new CheckerBoard(getContext());
+    }
 
-        linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        linePaint.setColor(0xff008000);
-        linePaint.setStrokeWidth(3);
-
-
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return board.onTouchEvent(this, event);
+        //return true;
     }
 
     /**
@@ -234,5 +230,8 @@ public class CheckersView extends View {
         invalidate();
     }
 
+    public CheckerBoard getBoard() {
+        return board;
+    }
 
 }
