@@ -60,6 +60,7 @@ public class CheckersView extends View {
      */
     private Bitmap hatBitmap = null;
 
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
        // return CheckerBoard.onTouchEvent(this, event);
@@ -232,5 +233,6 @@ public class CheckersView extends View {
 
         invalidate();
     }
+
 
 }

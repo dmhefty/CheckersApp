@@ -225,12 +225,9 @@ public class CheckerBoard {
 
 
             case MotionEvent.ACTION_UP:
+
             case MotionEvent.ACTION_CANCEL:
-                if(dragging != null) {
-                    dragging = null;
-                    return true;
-                }
-                break;
+                return onReleased(view, relX, relY);
 
             case MotionEvent.ACTION_MOVE:
                 // If we are dragging, move the piece and force a redraw
@@ -243,6 +240,22 @@ public class CheckerBoard {
                 }
                 break;
         }
+        return false;
+    }
+
+    /**
+     * Handle a release of a touch message.
+     * @param x x location for the touch release, relative to the puzzle - 0 to 1 over the puzzle
+     * @param y y location for the touch release, relative to the puzzle - 0 to 1 over the puzzle
+     * @return true if the touch is handled
+     */
+    private boolean onReleased(View view, float x, float y) {
+
+        if(dragging != null) {
+            dragging = null;
+            return true;
+        }
+
         return false;
     }
 
