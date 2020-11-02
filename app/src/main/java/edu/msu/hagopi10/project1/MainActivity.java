@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int  ENTER_NAMES = 1;
     public static final String NAME1 = "Player1";
     public static final String NAME2= "Player2";
+    public static String nameS1;
+    public static String nameS2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +32,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent1 = new Intent();
         EditText editText1 = (EditText) findViewById(R.id.PLAYER1NAME);
         EditText editText2 = (EditText) findViewById(R.id.PLAYER2NAME);
-        intent1.putExtra(NAME1, editText1.getText().toString());
-        intent1.putExtra(NAME2, editText2.getText().toString());
+        nameS1 = editText1.getText().toString();
+        nameS2 = editText2.getText().toString();
+        intent1.putExtra(NAME1,nameS1);
+        intent1.putExtra(NAME2,nameS2);
         Intent intent = new Intent(this, CheckersActivity.class);
         startActivity(intent);
     }
