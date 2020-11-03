@@ -128,13 +128,13 @@ public class CheckerPiece {
      * @return true if we hit the piece
      */
     public boolean hit(float testX, float testY,
-                       int puzzleSize, float scaleFactor) {
+                       int puzzleSize, float scaleFactor, int marginX, int marginY) {
 
         // Make relative to the location and size to the piece size
 
-        int pX = (int)((testX - x) * puzzleSize / scaleFactor) +
+        int pX = (int)((testX - x) * (puzzleSize + marginX*2) / scaleFactor) +
                 piece.getWidth() / 2;
-        int pY = (int)((testY - y) * puzzleSize / scaleFactor) +
+        int pY = (int)((testY - y) * (puzzleSize + marginY*2) / scaleFactor) +
                 piece.getHeight() / 2;
 
         if(pX < 0 || pX >= piece.getWidth() ||
