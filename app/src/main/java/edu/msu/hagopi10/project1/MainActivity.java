@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -25,6 +26,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    public void HowToPlay(View view) {
+
+
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(view.getContext());
+
+        // Parameterize the builder
+        builder.setTitle(R.string.how_to_play);
+        builder.setMessage(R.string.explanation);
+        builder.setPositiveButton(android.R.string.ok, null);
+        // Create the dialog box and show it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     public void onStartCheckersActivity(View view) {
