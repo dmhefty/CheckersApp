@@ -122,17 +122,17 @@ public class CheckerBoard {
 
         // Load the checkerboard pieces
 
-        pieces.add( new CheckerPiece(context, R.drawable.spartan_green, 12) );
+        //pieces.add( new CheckerPiece(context, R.drawable.spartan_green, 12) );
 
-        // Load green pieces
-        //for(int i = 0; i<12; i++){
-        //    pieces.add(new CheckerPiece(context, R.drawable.spartan_green, i));
-        //}
+        //Load green pieces
+        for(int i = 0; i<12; i++){
+            pieces.add(new CheckerPiece(context, R.drawable.spartan_green, i));
+        }
 
-        // Load white pieces
-        //for(int i = 0; i<12; i++){
-        //    pieces.add(new CheckerPiece(context, R.drawable.spartan_white, 31-i));
-        //}
+         //Load white pieces
+        for(int i = 0; i<12; i++){
+            pieces.add(new CheckerPiece(context, R.drawable.spartan_white, 31-i));
+        }
 
     }
 
@@ -231,8 +231,8 @@ public class CheckerBoard {
                 //PuzzlePiece t = pieces.get(pieces.size()-1);
                 //pieces.set(p, t);
                 //pieces.set(pieces.size()-1, dragging);
-                //pieces.add(pieces.size(), dragging);
-                //pieces.remove(p);
+                pieces.add(pieces.size(), dragging);
+                pieces.remove(p);
                 return true;
             }
         }
