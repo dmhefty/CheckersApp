@@ -29,7 +29,16 @@ public class CheckersActivity extends AppCompatActivity {
     }
 
     public void EndTurn(View view) {
-        if (score1 <= 0) {
+        CheckersView view1 = (CheckersView)findViewById(R.id.view);
+        for(CheckerPiece piece:view1.getBoard().pieces ){
+            if(piece.access ==1){
+                score1--;
+
+            }else{
+                score2--;
+            }
+        }
+        if (score1<= 0) {
             TextView p2Name = (TextView)findViewById(R.id.player2);
             p2Name.setText(MainActivity.nameS2);
 
