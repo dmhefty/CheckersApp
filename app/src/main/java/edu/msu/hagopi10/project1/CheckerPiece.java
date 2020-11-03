@@ -87,10 +87,16 @@ public class CheckerPiece {
      */
     public boolean isGrabbed;
 
+    /**
+     * Which player can grab this piece
+     * 1 is player 1, 2 is player 2
+     */
+    public int access;
 
-    public CheckerPiece(Context context, int id, int boardIndex) {
+    public CheckerPiece(Context context, int id, int boardIndex, int access) {
         this.locationIndex = boardIndex;
         this.id = id;
+        this.access = access;
 
         piece = BitmapFactory.decodeResource(context.getResources(), id);
 
@@ -132,11 +138,12 @@ public class CheckerPiece {
                        int puzzleSize, float scaleFactor, int marginX, int marginY) {
 
         // Make relative to the location and size to the piece size
+        scaleFactor = (puzzleSize/8.0f)/(float)Math.min(piece.getHeight(), piece.getWidth());
 
         int pX = (int)(( ((testX - x) * (puzzleSize + marginX*2)) +
-                piece.getWidth() / 2) *.9f);
+                piece.getWidth() * 3f/8f));
         int pY = (int)(( ((testY - y) * (puzzleSize + marginY*2)) +
-                piece.getHeight() / 2) *.9f);
+                piece.getHeight() * 3f/8f));
 
         if(pX < 0 || pX >= piece.getWidth()/2 ||
                 pY < 0 || pY >= piece.getHeight()/2) {
@@ -203,13 +210,17 @@ public class CheckerPiece {
 
 
         int index = calculateIndex(marginX, marginY, puzzleSize);
-        if (index >= 0) locationIndex = index;
 
-        if(Math.abs(x - finalX) < SNAP_DISTANCE &&
-                Math.abs(y - finalY) < SNAP_DISTANCE) {
+        // location must be greater than 0
+        // if player 1 and piece isn't a king, it must move down
+        // if player 2 and piece isn't a king, it must move upward
+        if(index >= 0
+                && ((access == 1 && index/4 > locationIndex/4)
+                ||  (access == 2 && index/4 < locationIndex/4))
+          )
+        {
 
-            x = finalX;
-            y = finalY;
+            locationIndex = index;
             return true;
         }
 

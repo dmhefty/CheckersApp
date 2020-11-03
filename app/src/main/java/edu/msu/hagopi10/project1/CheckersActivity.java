@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 public class CheckersActivity extends AppCompatActivity {
     public int score1 = 12;
     public int score2 = 12;
@@ -18,13 +16,12 @@ public class CheckersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkers);
-        TextView p1Name = (TextView)findViewById(R.id.textView3);
-        p1Name.setText(MainActivity.nameS1);
 
-        TextView p2Name = (TextView)findViewById(R.id.textView2);
+        TextView playerName = (TextView)findViewById(R.id.player1);
+        playerName.setText(MainActivity.nameS1);
+
+        TextView p2Name = (TextView)findViewById(R.id.player2);
         p2Name.setText(MainActivity.nameS2);
     }
-
-
 
 }

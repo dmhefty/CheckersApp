@@ -2,16 +2,14 @@ package edu.msu.hagopi10.project1;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
-import android.app.AlertDialog;
+
 import java.util.Random;
-import android.os.Bundle;
-import android.content.DialogInterface;
+
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -108,6 +106,13 @@ public class CheckerBoard {
      */
     private int lightSquare = 0xffebebd0;
 
+    /**
+     * Current player to make a move
+     * 1 = player 1
+     * 2 = player 2
+     * Starts game with player 1
+     */
+    private int activePlayer = 1;
 
     public CheckerBoard(Context context) {
 
@@ -126,12 +131,12 @@ public class CheckerBoard {
 
         //Load green pieces
         for(int i = 0; i<12; i++){
-            pieces.add(new CheckerPiece(context, R.drawable.spartan_green, i));
+            pieces.add(new CheckerPiece(context, R.drawable.spartan_green, i, 1));
         }
 
          //Load white pieces
         for(int i = 0; i<12; i++){
-            pieces.add(new CheckerPiece(context, R.drawable.spartan_white, 31-i));
+            pieces.add(new CheckerPiece(context, R.drawable.spartan_white, 31-i, 2));
         }
 
     }
@@ -170,22 +175,6 @@ public class CheckerBoard {
 
     }
 
-/*
-        if (dragging != null) {
-            dragging.draw_dragging(canvas, blockSize, xCoordinate, yCoordinate);
-        }
-        */
-
-
-    /*
-        public draw_dragging(canvas, blockSize, xCoordinate, yCoordinate) {
-            canvas.save();
-
-            canvas.translate(i, i)
-
-                    canvas.scale()
-        }
-    */
     public void drawColumn(Canvas canvas, int columnIndex){
         int wid = canvas.getWidth();
         int hit = canvas.getHeight();
@@ -220,7 +209,8 @@ public class CheckerBoard {
         // Check each piece to see if it has been hit
         // We do this in reverse order so we find the pieces in front
         for(int p=pieces.size()-1; p>=0;  p--) {
-            if(pieces.get(p).hit(x, y, checkerSize, SCALE_IN_VIEW, marginX, marginY)) {
+            if(pieces.get(p).hit(x, y, checkerSize, SCALE_IN_VIEW, marginX, marginY)
+                && activePlayer == pieces.get(p).access) {
                 // We hit a piece!
 
                 //dragging = pieces.get(pieces.size()-1);
@@ -299,14 +289,16 @@ public class CheckerBoard {
         if(dragging != null) {
             if(dragging.maybeSnap(marginX, marginY, checkerSize)) {
                 // We have snapped into place
-                dragging.locationIndex = 18;
-                view.invalidate();
 
 
                 if(isDone()) {
                     // The puzzle is done
 
                 }
+                else{
+                    switchTurn(view);
+                }
+                view.invalidate();
             }
             dragging.isGrabbed = false;
             dragging = null;
@@ -323,17 +315,13 @@ public class CheckerBoard {
      * @return true if puzzle is done
      */
     public boolean isDone() {
-        for(CheckerPiece piece : pieces) {
-            if(!piece.isSnapped()) {
-                return false;
-            }
-        }
-
-        return true;
+        if (pieces.isEmpty()) return true;
+        return false;
     }
 
+    private void switchTurn(View view){
+        // swap current player
+        activePlayer = activePlayer == 1 ? 2 : 1;
+    }
 
 }
-
-
-// test!!!!!

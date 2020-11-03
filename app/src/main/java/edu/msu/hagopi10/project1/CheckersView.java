@@ -56,12 +56,6 @@ public class CheckersView extends View {
      * Image top margin in pixels
      */
     private float marginTop = 0;
-    /**
-     * The bitmap to draw the hat
-     */
-    private Bitmap hatBitmap = null;
-
-
 
     private static class Parameters implements Serializable {
         /**
@@ -160,7 +154,7 @@ public class CheckersView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return board.onTouchEvent(this, event);
-        //return true;
+        //return true
     }
 
     /**
