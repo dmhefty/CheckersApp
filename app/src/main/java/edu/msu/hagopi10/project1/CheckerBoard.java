@@ -220,7 +220,7 @@ public class CheckerBoard {
         // Check each piece to see if it has been hit
         // We do this in reverse order so we find the pieces in front
         for(int p=pieces.size()-1; p>=0;  p--) {
-            if(pieces.get(p).hit(x, y, checkerSize, SCALE_IN_VIEW)) {
+            if(pieces.get(p).hit(x, y, checkerSize, SCALE_IN_VIEW, marginX, marginY)) {
                 // We hit a piece!
 
                 //dragging = pieces.get(pieces.size()-1);
@@ -257,8 +257,8 @@ public class CheckerBoard {
         xCoordinate = event.getX();
         yCoordinate = event.getY();
 
-        float relX = (event.getX() - marginX) / checkerSize;
-        float relY = (event.getY() - marginY) / checkerSize;
+        float relX = (event.getX()) / (checkerSize + marginX*2);
+        float relY = (event.getY()) / (checkerSize + marginY*2);
 
         switch (event.getActionMasked()) {
 
