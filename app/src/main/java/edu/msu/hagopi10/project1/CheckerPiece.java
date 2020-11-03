@@ -174,4 +174,32 @@ public class CheckerPiece {
         }
 
     }
+
+    /**
+     * If we are within SNAP_DISTANCE of the correct
+     * answer, snap to the correct answer exactly.
+     * @return
+     */
+    public boolean maybeSnap() {
+        if(Math.abs(x - finalX) < SNAP_DISTANCE &&
+                Math.abs(y - finalY) < SNAP_DISTANCE) {
+
+            x = finalX;
+            y = finalY;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Determine if this piece is snapped in place
+     * @return true if snapped into place
+     */
+    public boolean isSnapped() {
+        if (x == finalX && y == finalY) {
+            return true;
+        }
+        return false;
+    }
 }

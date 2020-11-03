@@ -269,6 +269,7 @@ public class CheckerBoard {
             case MotionEvent.ACTION_CANCEL:
                 return onReleased(view, relX, relY);
 
+
             case MotionEvent.ACTION_MOVE:
                 // If we are dragging, move the piece and force a redraw
                 if(dragging != null) {
@@ -298,6 +299,10 @@ public class CheckerBoard {
 
         dragging.move(lastRelX, lastRelY);
         if(dragging != null) {
+            if(dragging.maybeSnap()) {
+                // We have snapped into place
+                view.invalidate();
+            }
             dragging.isGrabbed = false;
             dragging = null;
 
