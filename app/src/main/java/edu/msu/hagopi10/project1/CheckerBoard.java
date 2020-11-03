@@ -287,8 +287,17 @@ public class CheckerBoard {
     private boolean onReleased(View view, float x, float y) {
 
         if(dragging != null) {
+            for (int p=pieces.size()-1; p>=0;  p--){
+                if (dragging.locationIndex == pieces.get(p).locationIndex) {
+                    if (dragging != pieces.get(p)) {
+                        //pieces.remove(p);
+                        //return false;
+                    }
+                }
+            }
             if(dragging.maybeSnap(marginX, marginY, checkerSize)) {
                 // We have snapped into place
+
 
 
                 if(isDone()) {

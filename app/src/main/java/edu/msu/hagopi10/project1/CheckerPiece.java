@@ -200,7 +200,14 @@ public class CheckerPiece {
         return rowIndex*4 + colIndex;
     }
 
-
+    public boolean isValid(int index) {
+        //compute if there is a piece at index.
+        //if there is friendly piece at index, return false
+        //else, there must be either no piece or an enemy piece
+        //if there is an enemy piece, delete that piece, and return true
+        //if there is no piece, return true
+        return true;
+    }
     /**
      * If we are within SNAP_DISTANCE of the correct
      * answer, snap to the correct answer exactly.
@@ -221,7 +228,10 @@ public class CheckerPiece {
         {
 
             locationIndex = index;
-            return true;
+            if (isValid(index)) {
+                return true;
+            }
+
         }
 
         return false;
