@@ -14,6 +14,14 @@ private int playerCtr = 0;
 private int access1 = 1;
 private int access2 = 2;
 
+public String GetName1() {
+    return name1;
+}
+
+public String GetName2() {
+    return name2;
+}
+
 public Player( int access, float score1){
         if(playerCtr == 0) {
             this.score = score1;
@@ -26,6 +34,8 @@ public Player( int access, float score1){
             this.access2 = access;
             this.name2 = MainActivity.nameS2;
         }
+
+
     }
 
 }

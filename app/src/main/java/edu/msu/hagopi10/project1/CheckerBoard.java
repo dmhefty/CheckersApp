@@ -51,18 +51,11 @@ public class CheckerBoard {
      */
     private int marginY;
 
-    private float xCoordinate;
-
-    private float yCoordinate;
-
     /**
      * Most recent relative X touch when dragging
      */
     private float lastRelX;
 
-    //gameSize = int(minDim) * SCALE_IN_VIEW;
-
-    //blockSize = gameSize /8
     /**
      * Most recent relative Y touch when dragging
      */
@@ -113,6 +106,10 @@ public class CheckerBoard {
      * Starts game with player 1
      */
     private int activePlayer = 1;
+
+    public int getActivePlayer() {
+        return activePlayer;
+    }
 
     public CheckerBoard(Context context) {
 
@@ -244,9 +241,6 @@ public class CheckerBoard {
         // Convert an x,y location to a relative location in the
         // puzzle.
         //
-        xCoordinate = event.getX();
-        yCoordinate = event.getY();
-
         float relX = (event.getX()) / (checkerSize + marginX*2);
         float relY = (event.getY()) / (checkerSize + marginY*2);
 
@@ -288,8 +282,16 @@ public class CheckerBoard {
 
         if(dragging != null) {
             for (int p=pieces.size()-1; p>=0;  p--){
+                CheckerPiece test1 = pieces.get(p);
+                int proposedIndex = dragging.calculateIndex(marginX, marginY, checkerSize);
+                int currentIndex = test1.calculateIndex(marginX, marginY, checkerSize);
+
                 if (dragging.locationIndex == pieces.get(p).locationIndex) {
-                    if (dragging != pieces.get(p)) {
+                    if (dragging.locationIndex == pieces.get(p).locationIndex) {
+                        //true
+                        if (pieces.get(p) != dragging) {
+                            return false;
+                        }
                         //pieces.remove(p);
                         //return false;
                     }
