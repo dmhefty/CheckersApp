@@ -1,6 +1,7 @@
 package edu.msu.hagopi10.project1;
 
 import android.content.Context;
+import android.database.CrossProcessCursorWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -72,7 +73,7 @@ public class CheckerPiece {
      * We consider a piece to be in the right location if within
      * this distance.
      */
-    final static float SNAP_DISTANCE = 0.05f;
+    final static float SNAP_DISTANCE = 0.5f;
 
     /**
      * What square the piece is in, starts counting from the top, leftmost, square, counts right
@@ -175,12 +176,47 @@ public class CheckerPiece {
 
     }
 
+    public void calculateIndex(int marginX, int marginY, int puzzleSize) {
+
+
+        //gets index
+
+        int xIndex; int yIndex;
+        int index1 = 18;
+        xIndex = index1%4;
+        yIndex = index1/4;
+
+        // Convert x,y to pixels and add the margin, then draw
+        if( yIndex%2 == 0 ){
+            finalX = (float) (marginX + xIndex * puzzleSize/4 + puzzleSize/16) / (float) (puzzleSize + 2*marginX);
+            finalY  = (float) (marginY + yIndex * puzzleSize/8 + puzzleSize/16) / (float) (puzzleSize + 2*marginY);
+
+            //xIndex  = marginX + finalX * (puzzleSize + 2*marginX) - puzzleSize/16) / (puzzleSize/4)
+
+
+            //int row = finalX;
+            //int column =
+        }
+        else{
+            finalX = (float) (marginX + xIndex * puzzleSize/4 + puzzleSize * 3/16) / (float) (puzzleSize + 2*marginX);
+            finalY = (float) (marginY + yIndex * puzzleSize/8 + puzzleSize/16) / (float) (puzzleSize + 2*marginY);
+        }
+
+
+        //get our index?????
+    }
+
+
     /**
      * If we are within SNAP_DISTANCE of the correct
      * answer, snap to the correct answer exactly.
      * @return
      */
-    public boolean maybeSnap() {
+    public boolean maybeSnap(int marginX, int marginY, int puzzleSize) {
+
+
+        calculateIndex(marginX, marginY, puzzleSize);
+
         if(Math.abs(x - finalX) < SNAP_DISTANCE &&
                 Math.abs(y - finalY) < SNAP_DISTANCE) {
 

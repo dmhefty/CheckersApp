@@ -299,9 +299,16 @@ public class CheckerBoard {
 
         dragging.move(lastRelX, lastRelY);
         if(dragging != null) {
-            if(dragging.maybeSnap()) {
+            if(dragging.maybeSnap(marginX, marginY, checkerSize)) {
                 // We have snapped into place
+                dragging.locationIndex = 18;
                 view.invalidate();
+
+
+                if(isDone()) {
+                    // The puzzle is done
+
+                }
             }
             dragging.isGrabbed = false;
             dragging = null;
@@ -310,6 +317,20 @@ public class CheckerBoard {
         }
 
         return false;
+    }
+
+    /**
+     * Determine if the puzzle is done!
+     * @return true if puzzle is done
+     */
+    public boolean isDone() {
+        for(CheckerPiece piece : pieces) {
+            if(!piece.isSnapped()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
