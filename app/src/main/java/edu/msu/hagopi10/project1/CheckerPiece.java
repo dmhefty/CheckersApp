@@ -73,7 +73,7 @@ public class CheckerPiece {
      * We consider a piece to be in the right location if within
      * this distance.
      */
-    final static float SNAP_DISTANCE = 0.5f;
+    final static float SNAP_DISTANCE = .07f;
 
     /**
      * What square the piece is in, starts counting from the top, leftmost, square, counts right
@@ -106,7 +106,7 @@ public class CheckerPiece {
         // Convert x,y to pixels and add the margin, then draw
         canvas.translate(x * (puzzleSize + 2*marginX), y * (puzzleSize + 2*marginY));
 
-        scaleFactor = (puzzleSize/8.0f)/(float)Math.min(piece.getWidth(), piece.getWidth());
+        scaleFactor = (puzzleSize/8.0f)/(float)Math.min(piece.getHeight(), piece.getWidth());
 
         // Scale it to the right size
         canvas.scale(scaleFactor, scaleFactor);
@@ -133,13 +133,13 @@ public class CheckerPiece {
 
         // Make relative to the location and size to the piece size
 
-        int pX = (int)((testX - x) * (puzzleSize + marginX*2) / scaleFactor) +
-                piece.getWidth() / 2;
-        int pY = (int)((testY - y) * (puzzleSize + marginY*2) / scaleFactor) +
-                piece.getHeight() / 2;
+        int pX = (int)(( ((testX - x) * (puzzleSize + marginX*2)) +
+                piece.getWidth() / 2) *.9f);
+        int pY = (int)(( ((testY - y) * (puzzleSize + marginY*2)) +
+                piece.getHeight() / 2) *.9f);
 
-        if(pX < 0 || pX >= piece.getWidth() ||
-                pY < 0 || pY >= piece.getHeight()) {
+        if(pX < 0 || pX >= piece.getWidth()/2 ||
+                pY < 0 || pY >= piece.getHeight()/2) {
             return false;
         }
 
@@ -176,34 +176,21 @@ public class CheckerPiece {
 
     }
 
-    public void calculateIndex(int marginX, int marginY, int puzzleSize) {
+    public int calculateIndex(int marginX, int marginY, int puzzleSize) {
 
+        int colIndex; int rowIndex;
+        //gets row (y) index
+        rowIndex = (int) (((float) ((y)*(puzzleSize + 2*marginY) - marginY) / (float) (puzzleSize/8)));
 
-        //gets index
-
-        int xIndex; int yIndex;
-        int index1 = 18;
-        xIndex = index1%4;
-        yIndex = index1/4;
-
-        // Convert x,y to pixels and add the margin, then draw
-        if( yIndex%2 == 0 ){
-            finalX = (float) (marginX + xIndex * puzzleSize/4 + puzzleSize/16) / (float) (puzzleSize + 2*marginX);
-            finalY  = (float) (marginY + yIndex * puzzleSize/8 + puzzleSize/16) / (float) (puzzleSize + 2*marginY);
-
-            //xIndex  = marginX + finalX * (puzzleSize + 2*marginX) - puzzleSize/16) / (puzzleSize/4)
-
-
-            //int row = finalX;
-            //int column =
+        // find column (x) index based on if it should be shifted over
+        if( rowIndex%2 == 0 ){
+            colIndex = (int) ((x*(puzzleSize + 2*marginX) + (puzzleSize* 1/16) - marginX) / (puzzleSize/4));
         }
         else{
-            finalX = (float) (marginX + xIndex * puzzleSize/4 + puzzleSize * 3/16) / (float) (puzzleSize + 2*marginX);
-            finalY = (float) (marginY + yIndex * puzzleSize/8 + puzzleSize/16) / (float) (puzzleSize + 2*marginY);
+            colIndex = (int) ((x*(puzzleSize + 2*marginX) - marginX) / (puzzleSize/4));
         }
 
-
-        //get our index?????
+        return rowIndex*4 + colIndex;
     }
 
 
@@ -215,7 +202,8 @@ public class CheckerPiece {
     public boolean maybeSnap(int marginX, int marginY, int puzzleSize) {
 
 
-        calculateIndex(marginX, marginY, puzzleSize);
+        int index = calculateIndex(marginX, marginY, puzzleSize);
+        if (index >= 0) locationIndex = index;
 
         if(Math.abs(x - finalX) < SNAP_DISTANCE &&
                 Math.abs(y - finalY) < SNAP_DISTANCE) {

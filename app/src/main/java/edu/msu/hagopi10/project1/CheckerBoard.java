@@ -296,8 +296,6 @@ public class CheckerBoard {
      */
     private boolean onReleased(View view, float x, float y) {
 
-
-        dragging.move(lastRelX, lastRelY);
         if(dragging != null) {
             if(dragging.maybeSnap(marginX, marginY, checkerSize)) {
                 // We have snapped into place
@@ -313,6 +311,7 @@ public class CheckerBoard {
             dragging.isGrabbed = false;
             dragging = null;
 
+            view.invalidate();
             return true;
         }
 

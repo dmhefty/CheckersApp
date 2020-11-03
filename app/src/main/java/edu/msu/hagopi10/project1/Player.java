@@ -11,7 +11,7 @@ private float score;
 private String name1;
 private String name2;
 private int playerCtr = 0;
-private int access1 =1;
+private int access1 = 1;
 private int access2 = 2;
 
 public Player( int access, float score1){
