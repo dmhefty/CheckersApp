@@ -223,12 +223,11 @@ public class CheckerPiece {
         // if player 1 and piece isn't a king, it must move down
         // if player 2 and piece isn't a king, it must move upward
         if(index >= 0
-                && ((access == 1 && index/4 > locationIndex/4)
-                ||  (access == 2 && index/4 < locationIndex/4))
-          )
+                && ((access == 1 && index/4 > locationIndex/4 && (index ==  locationIndex+4 || index == locationIndex+5))
+                ||  (access == 2 && index/4 < locationIndex/4 && (index ==  locationIndex-4 || index == locationIndex-5))))
         {
 
-            locationIndex = index;
+
             if (isValid(index)) {
                 return true;
             }
@@ -247,5 +246,12 @@ public class CheckerPiece {
             return true;
         }
         return false;
+    }
+
+    /**
+     * words
+     */
+    public void updateIndex(int index){
+        locationIndex = index;
     }
 }

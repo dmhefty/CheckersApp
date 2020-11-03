@@ -300,15 +300,30 @@ public class CheckerBoard {
             if(dragging.maybeSnap(marginX, marginY, checkerSize)) {
                 // We have snapped into place
 
+                // check if there is  a  piece in the way
+                boolean locationOccupied = false;
+                for(CheckerPiece piece : pieces){
+                    if(piece.locationIndex == dragging.calculateIndex(marginX,  marginY,  checkerSize)){
+                        locationOccupied = true;
+                    }
+                }
 
+                if(!locationOccupied)  {
+                    dragging.locationIndex = dragging.calculateIndex(marginX, marginY, checkerSize);
 
-                if(isDone()) {
-                    // The puzzle is done
+                    if(isDone()) {
+                        // The puzzle is done
 
+                    }
+                    else{
+                        switchTurn(view);
+                    }
                 }
                 else{
-                    switchTurn(view);
+                    // move failed
                 }
+
+
                 view.invalidate();
             }
             dragging.isGrabbed = false;
