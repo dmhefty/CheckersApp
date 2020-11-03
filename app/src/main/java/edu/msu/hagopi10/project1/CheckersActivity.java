@@ -3,8 +3,10 @@ package edu.msu.hagopi10.project1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class CheckersActivity extends AppCompatActivity {
@@ -64,16 +66,12 @@ public class CheckersActivity extends AppCompatActivity {
 
         }
         */
-        AlertDialog.Builder builder =
-                new AlertDialog.Builder(view.getContext());
+        Intent intent = new Intent(this, EndGame.class);
+        startActivity(intent);
 
-        // Parameterize the builder
-        builder.setTitle(R.string.gameover);
-        builder.setMessage(R.string.forfeit_message);
-        builder.setPositiveButton(android.R.string.ok, null);
-        // Create the dialog box and show it
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+
+
+
     }
 
 
