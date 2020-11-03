@@ -23,7 +23,7 @@ import java.security.Policy;
 public class CheckersView extends View {
 
 
-    private CheckerBoard board;
+    public CheckerBoard board;
 
     /**
      * Paint object we will use to draw a line
