@@ -27,14 +27,15 @@
         android:paddingLeft="10dp"
         android:paddingTop="25dp"
         android:paddingRight="10dp"
+        android:paddingBottom="25dp"
         android:text="@string/forfeit_message"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="match_parent"
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="New_Game"
-        tools:text="@string/new_game" />
+        android:text="@string/ng" />
 
 </LinearLayout>
