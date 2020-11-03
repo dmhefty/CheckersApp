@@ -297,19 +297,22 @@ public class CheckerBoard {
                     }
                 }
             }
+            int potentialIndex = dragging.calculateIndex(marginX,  marginY,  checkerSize);
             if(dragging.maybeSnap(marginX, marginY, checkerSize)) {
                 // We have snapped into place
 
                 // check if there is  a  piece in the way
                 boolean locationOccupied = false;
+                //int potentialIndex = dragging.calculateIndex(marginX,  marginY,  checkerSize);
                 for(CheckerPiece piece : pieces){
-                    if(piece.locationIndex == dragging.calculateIndex(marginX,  marginY,  checkerSize)){
+                    if(piece.locationIndex == potentialIndex){
                         locationOccupied = true;
+                        break;
                     }
                 }
 
                 if(!locationOccupied)  {
-                    dragging.locationIndex = dragging.calculateIndex(marginX, marginY, checkerSize);
+                    dragging.updateIndex(potentialIndex, marginX, marginY, checkerSize);
 
                     if(isDone()) {
                         // The puzzle is done
@@ -320,11 +323,56 @@ public class CheckerBoard {
                     }
                 }
                 else{
-                    // move failed
+                    // if move fails, reset x and y
+
+
                 }
 
 
                 view.invalidate();
+            }
+            else if(!(potentialIndex<0 || potentialIndex>31) ) {
+                // check for jump before failure
+                //int potentialIndex = dragging.calculateIndex(marginX,  marginY,  checkerSize);
+                int potentialJumpee = -1;
+                switch(dragging.locationIndex - potentialIndex){
+                    case 7:
+                        if( (dragging.locationIndex/4)%2 == 0 ){
+                            // if player 1, use 4 if player 2 use 3
+                            potentialJumpee = dragging.access == 1 ? 4 : 3;
+                        }
+                        else{
+                            // if player 1, use 3 if player 2 use 4
+                            potentialJumpee = dragging.access == 1 ? 3 : 4;
+                        }
+                        break;
+                    case 9:
+                        if( (dragging.locationIndex/4)%2 == 0 ){
+                            // if player 1, use 4 if player 2 use 5
+                            potentialJumpee = dragging.access == 1 ? 5 : 4;
+                        }
+                        else{
+                            // if player 1, use 5 if player 2 use 4
+                            potentialJumpee = dragging.access == 1 ? 4 : 5;
+                        }
+                        break;
+                }
+                if(!(potentialJumpee == -1)){  // if valid and/or not
+                    for(CheckerPiece piece : pieces){
+                        if( (dragging.access == 1 && (dragging.locationIndex + potentialJumpee) == piece.locationIndex)
+                         || (dragging.access == 2 && (dragging.locationIndex - potentialJumpee) == piece.locationIndex))
+                        {
+                            // kill piece
+                            pieces.remove(piece);
+                            // move dragging
+                            dragging.updateIndex(potentialIndex, marginX, marginY, checkerSize);
+                            switchTurn(view);
+                            break;
+                        }
+                    }
+
+                }
+
             }
             dragging.isGrabbed = false;
             dragging = null;

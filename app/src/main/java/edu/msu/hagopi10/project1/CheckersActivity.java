@@ -26,6 +26,7 @@ public class CheckersActivity extends AppCompatActivity {
 
         TextView p2Name = (TextView)findViewById(R.id.player2);
         p2Name.setText(MainActivity.nameS2);
+
     }
 
     public void EndTurn(View view) {

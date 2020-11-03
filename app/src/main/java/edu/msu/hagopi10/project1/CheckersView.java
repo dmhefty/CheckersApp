@@ -25,7 +25,6 @@ public class CheckersView extends View {
 
     private CheckerBoard board;
 
-
     /**
      * Paint object we will use to draw a line
      */
