@@ -29,4 +29,18 @@
         android:layout_weight="1"
         android:gravity="center_horizontal|top" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="EndTurn"
+        android:text="@string/endturn" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="Forfeit"
+        android:text="@string/Forfeit" />
+
 </LinearLayout>

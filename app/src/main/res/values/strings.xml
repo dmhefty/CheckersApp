@@ -7,4 +7,9 @@
     <string name="player1">input player 1 name</string>
     <string name="player2">input player 2 name</string>
     <string name="entername">Submit Names</string>
+    <string name="endturn">End Turn</string>
+    <string name="Forfeit">Forfeit</string>
+    <string name="gameover">Game Over</string>
+    <string name="completed_puzzle"> wins the game</string>
+    <string name="forfeit_message">Your Opponent Has Conceded The Match. </string>
 </resources>
