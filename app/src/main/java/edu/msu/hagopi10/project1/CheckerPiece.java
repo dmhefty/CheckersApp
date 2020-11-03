@@ -173,11 +173,11 @@ public class CheckerPiece {
 
         // Convert x,y to pixels and add the margin, then draw
         if( yIndex%2 == 0 ){
-            x = (float) (marginX + xIndex * puzzleSize/4 + puzzleSize/16) / (float) (puzzleSize + 2*marginX);
+            x = (float) (marginX + xIndex * puzzleSize/4 + puzzleSize * 3/16) / (float) (puzzleSize + 2*marginX);
             y = (float) (marginY + yIndex * puzzleSize/8 + puzzleSize/16) / (float) (puzzleSize + 2*marginY);
         }
         else{
-            x = (float) (marginX + xIndex * puzzleSize/4 + puzzleSize * 3/16) / (float) (puzzleSize + 2*marginX);
+            x = (float) (marginX + xIndex * puzzleSize/4 + puzzleSize/16) / (float) (puzzleSize + 2*marginX);
             y = (float) (marginY + yIndex * puzzleSize/8 + puzzleSize/16) / (float) (puzzleSize + 2*marginY);
         }
 
@@ -191,10 +191,11 @@ public class CheckerPiece {
 
         // find column (x) index based on if it should be shifted over
         if( rowIndex%2 == 0 ){
-            colIndex = (int) ((x*(puzzleSize + 2*marginX) + (puzzleSize* 1/16) - marginX) / (puzzleSize/4));
+            colIndex = (int) ((x*(puzzleSize + 2*marginX) - marginX) / (puzzleSize/4));
+
         }
         else{
-            colIndex = (int) ((x*(puzzleSize + 2*marginX) - marginX) / (puzzleSize/4));
+            colIndex = (int) ((x*(puzzleSize + 2*marginX) + (puzzleSize* 1/16) - marginX) / (puzzleSize/4));
         }
 
         return rowIndex*4 + colIndex;

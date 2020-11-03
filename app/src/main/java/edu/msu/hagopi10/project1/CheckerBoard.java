@@ -116,10 +116,10 @@ public class CheckerBoard {
         // Create paint for filling the area the checkerboard will
         // be solved in.
         fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        fillPaint.setColor(0xffcccccc);
+        fillPaint.setColor(0xccccffcc);
 
         outlinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        outlinePaint.setColor(0xccccffcc);
+        outlinePaint.setColor(0xffcccccc);
 
 
         // Load the checkerboard pieces
@@ -189,7 +189,7 @@ public class CheckerBoard {
              int squareCenterXOffset = marginX + columnIndex * puzzleSize/8;
              int squareCenterYOffset = marginY + i * puzzleSize/8;
 
-             if ((i + columnIndex) % 2 == 0){
+             if ((i + columnIndex) % 2 == 1){
                  fillPaint.setColor(darkSquare);
              }
              else{
