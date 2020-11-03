@@ -1,0 +1,182 @@
+Index: app/src/main/java/edu/msu/hagopi10/project1/CheckerPiece.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.msu.hagopi10.project1;\r\n\r\nimport android.content.Context;\r\nimport android.graphics.Bitmap;\r\nimport android.graphics.BitmapFactory;\r\nimport android.graphics.Canvas;\r\nimport java.util.Random;\r\nimport android.graphics.Paint;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Random;\r\n\r\npublic class CheckerPiece {\r\n    /**\r\n     * THe image for the actual piece.\r\n     */\r\n    private Bitmap piece;\r\n\r\n    public float getX() {\r\n        return x;\r\n    }\r\n\r\n    public void setX(float x) {\r\n        this.x = x;\r\n    }\r\n\r\n    public float getY() {\r\n        return y;\r\n    }\r\n\r\n    public void setY(float y) {\r\n        this.y = y;\r\n    }\r\n\r\n    public int getId() {\r\n        return id;\r\n    }\r\n\r\n    /**\r\n     * The piece ID\r\n     */\r\n    private int id;\r\n\r\n    /**\r\n     * x location.\r\n     * We use relative x locations in the range 0-1 for the center\r\n     * of the puzzle piece.\r\n     */\r\n    private float x = 0;\r\n\r\n    /**\r\n     * y location\r\n     */\r\n    private float y = 0;\r\n\r\n    /**\r\n     * x location when the puzzle is solved\r\n     */\r\n    private float finalX;\r\n\r\n    /**\r\n     * y location when the puzzle is solved\r\n     */\r\n    private float finalY;\r\n\r\n    /**\r\n     * y location when the puzzle is solved\r\n     */\r\n    private Paint textPaint;\r\n\r\n    /**\r\n     * We consider a piece to be in the right location if within\r\n     * this distance.\r\n     */\r\n    final static float SNAP_DISTANCE = 0.05f;\r\n\r\n    /**\r\n     * What square the piece is in, starts counting from the top, leftmost, square, counts right\r\n     * until the end of the row then loops to the leftmost square on the next row and continues\r\n     * counting\r\n     */\r\n    public int locationIndex;\r\n\r\n    public CheckerPiece(Context context, int id, int boardIndex) {\r\n        this.locationIndex = boardIndex;\r\n        this.id = id;\r\n\r\n        piece = BitmapFactory.decodeResource(context.getResources(), id);\r\n    }\r\n\r\n    public void draw(Canvas canvas, int marginX, int marginY,\r\n                     int puzzleSize, float scaleFactor){\r\n\r\n        int xIndex; int yIndex;\r\n        xIndex = locationIndex%4;\r\n        yIndex = locationIndex/4;\r\n\r\n        canvas.save();\r\n\r\n        // Convert x,y to pixels and add the margin, then draw\r\n        if( yIndex%2 == 0 ){\r\n            canvas.translate(marginX + xIndex * puzzleSize/4 + puzzleSize/16, marginY + yIndex * puzzleSize/8 + puzzleSize/16);\r\n        }\r\n        else{\r\n            canvas.translate(marginX + xIndex * puzzleSize/4 + puzzleSize * 3/16, marginY + yIndex * puzzleSize/8 + puzzleSize/16);\r\n        }\r\n\r\n        scaleFactor = (puzzleSize/8.0f)/(float)Math.min(piece.getWidth(), piece.getWidth());\r\n\r\n        // Scale it to the right size\r\n        canvas.scale(scaleFactor, scaleFactor);\r\n\r\n        // This magic code makes the center of the piece at 0, 0\r\n        canvas.translate(-piece.getWidth() / 2f, -piece.getHeight() / 2f);\r\n\r\n        // Draw the bitmap\r\n        canvas.drawBitmap(piece, 0, 0, null);\r\n        canvas.restore();\r\n\r\n    }\r\n\r\n    /**\r\n     * Test to see if we have touched a puzzle piece\r\n     * @param testX X location as a normalized coordinate (0 to 1)\r\n     * @param testY Y location as a normalized coordinate (0 to 1)\r\n     * @param puzzleSize the size of the puzzle in pixels\r\n     * @param scaleFactor the amount to scale a piece by\r\n     * @return true if we hit the piece\r\n     */\r\n    public boolean hit(float testX, float testY,\r\n                       int puzzleSize, float scaleFactor) {\r\n\r\n        // Make relative to the location and size to the piece size\r\n\r\n        int pX = (int)((testX - x) * puzzleSize / scaleFactor) +\r\n                piece.getWidth() / 2;\r\n        int pY = (int)((testY - y) * puzzleSize / scaleFactor) +\r\n                piece.getHeight() / 2;\r\n\r\n        if(pX < 0 || pX >= piece.getWidth() ||\r\n                pY < 0 || pY >= piece.getHeight()) {\r\n            return false;\r\n        }\r\n\r\n        // We are within the rectangle of the piece.\r\n        // Are we touching actual picture?\r\n        return (piece.getPixel(pX, pY) & 0xff000000) != 0;\r\n\r\n    }\r\n\r\n    /**\r\n     * Move the puzzle piece by dx, dy\r\n     * @param dx x amount to move\r\n     * @param dy y amount to move\r\n     */\r\n    public void move(float dx, float dy) {\r\n        x += dx;\r\n        y += dy;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/edu/msu/hagopi10/project1/CheckerPiece.java	(revision 9b33a5de8f53a5f922c225e702f007823741c920)
++++ app/src/main/java/edu/msu/hagopi10/project1/CheckerPiece.java	(date 1604362584306)
+@@ -81,11 +81,13 @@
+      */
+     public int locationIndex;
+ 
+-    public CheckerPiece(Context context, int id, int boardIndex) {
++    public CheckerPiece(Context context, int id, int boardIndex, int marginX, int marginY, int puzzleSize) {
+         this.locationIndex = boardIndex;
+         this.id = id;
+ 
+         piece = BitmapFactory.decodeResource(context.getResources(), id);
++
++        setLocationFromIndex(boardIndex, marginX, marginY, puzzleSize);
+     }
+ 
+     public void draw(Canvas canvas, int marginX, int marginY,
+@@ -132,6 +134,8 @@
+ 
+         // Make relative to the location and size to the piece size
+ 
++
++
+         int pX = (int)((testX - x) * puzzleSize / scaleFactor) +
+                 piece.getWidth() / 2;
+         int pY = (int)((testY - y) * puzzleSize / scaleFactor) +
+@@ -157,4 +161,21 @@
+         x += dx;
+         y += dy;
+     }
++
++    public void setLocationFromIndex(int index, int marginX, int marginY, int puzzleSize){
++        int xIndex; int yIndex;
++        xIndex = index%4;
++        yIndex = index/4;
++
++        // Convert x,y to pixels and add the margin, then draw
++        if( yIndex%2 == 0 ){
++            x = marginX + xIndex * puzzleSize/4 + puzzleSize/16;
++            y = marginY + yIndex * puzzleSize/8 + puzzleSize/16;
++        }
++        else{
++            x = marginX + xIndex * puzzleSize/4 + puzzleSize * 3/16;
++            y = marginY + yIndex * puzzleSize/8 + puzzleSize/16;
++        }
++
++    }
+ }
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"gradleJvm\" value=\"1.8\" />\r\n        <option name=\"modules\">\r\n          <set>\r\n            <option value=\"$PROJECT_DIR$\" />\r\n            <option value=\"$PROJECT_DIR$/app\" />\r\n          </set>\r\n        </option>\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision 9b33a5de8f53a5f922c225e702f007823741c920)
++++ .idea/gradle.xml	(date 1604360207102)
+@@ -15,6 +15,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: app/src/main/java/edu/msu/hagopi10/project1/CheckerBoard.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.msu.hagopi10.project1;\r\n\r\n\r\nimport android.content.Context;\r\nimport android.graphics.Bitmap;\r\nimport android.graphics.BitmapFactory;\r\nimport android.graphics.Canvas;\r\nimport android.graphics.Paint;\r\nimport android.view.MotionEvent;\r\nimport android.view.View;\r\nimport android.app.AlertDialog;\r\nimport java.util.Random;\r\nimport android.os.Bundle;\r\nimport android.content.DialogInterface;\r\n\r\n\r\nimport java.util.ArrayList;\r\n\r\n/**\r\n * This class represents our checkerboard.\r\n */\r\npublic class CheckerBoard {\r\n\r\n    private Paint textPaint;\r\n    /**\r\n     * Paint for filling the area the checkerboard is in\r\n     */\r\n    private Paint fillPaint;\r\n\r\n    /**\r\n     * Paint for outlining the area the checkerboard is in\r\n     */\r\n    private Paint outlinePaint;\r\n    \r\n\r\n    /**\r\n     * The size of the checkerboard in pixels\r\n     */\r\n    private int checkerSize;\r\n\r\n    /**\r\n     * How much we scale the checkerboard pieces\r\n     */\r\n    private float scaleFactor;\r\n\r\n    /**\r\n     * Left margin in pixels\r\n     */\r\n    private int marginX;\r\n\r\n    /**\r\n     * Top margin in pixels\r\n     */\r\n    private int marginY;\r\n\r\n    /**\r\n     * Most recent relative X touch when dragging\r\n     */\r\n    private float lastRelX;\r\n\r\n    //gameSize = int(minDim) * SCALE_IN_VIEW;\r\n\r\n    //blockSize = gameSize /8\r\n    /**\r\n     * Most recent relative Y touch when dragging\r\n     */\r\n    private float lastRelY;\r\n\r\n    /**\r\n     * Collection of checkerboard pieces\r\n     */\r\n    public ArrayList<CheckerPiece> pieces = new ArrayList< >();\r\n\r\n    /**\r\n     * This variable is set to a piece we are dragging. If\r\n     * we are not dragging, the variable is null.\r\n     */\r\n    private CheckerPiece dragging = null;\r\n\r\n    /**\r\n     * Percentage of the display width or height that\r\n     * is occupied by the checkerboard.\r\n     */\r\n    final static float SCALE_IN_VIEW = 0.9f;\r\n\r\n    /**\r\n     * Random number generator\r\n     */\r\n    private static Random random = new Random();\r\n\r\n    /**\r\n     * The name of the bundle keys to save the checkerboard\r\n     */\r\n    private final static String LOCATIONS = \"checkerboard.locations\";\r\n    private final static String IDS = \"checkerboard.ids\";\r\n\r\n    /**\r\n     * Paint color we will use to draw dark checker squares\r\n     */\r\n    private int darkSquare = 0xff779455;\r\n\r\n    /**\r\n     * Paint color we will use to draw light checker squares\r\n     */\r\n    private int lightSquare = 0xffebebd0;\r\n\r\n\r\n    public CheckerBoard(Context context) {\r\n\r\n        // Create paint for filling the area the checkerboard will\r\n        // be solved in.\r\n        fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);\r\n        fillPaint.setColor(0xffcccccc);\r\n\r\n        outlinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);\r\n        outlinePaint.setColor(0xccccffcc);\r\n\r\n\r\n        // Load the checkerboard pieces\r\n\r\n        // Load green pieces\r\n        for(int i = 0; i<12; i++){\r\n            pieces.add(new CheckerPiece(context, R.drawable.spartan_green, i));\r\n        }\r\n\r\n        // Load white pieces\r\n        for(int i = 0; i<12; i++){\r\n            pieces.add(new CheckerPiece(context, R.drawable.spartan_white, 31-i));\r\n        }\r\n\r\n    }\r\n\r\n    public void draw(Canvas canvas){\r\n        int wid = canvas.getWidth();\r\n        int hit = canvas.getHeight();\r\n\r\n        // Determine the minimum of the two dimensions\r\n        int minDim = wid < hit ? wid : hit;\r\n\r\n        checkerSize = (int)(minDim * SCALE_IN_VIEW);\r\n\r\n        // Compute the margins so we center the puzzle\r\n        marginX = (wid - checkerSize) / 2;\r\n        marginY = (hit - checkerSize) / 2;\r\n        //\r\n        // Draw the outline of the puzzle\r\n        //\r\n\r\n        scaleFactor = (float)checkerSize;\r\n\r\n        canvas.drawRect(marginX, marginY,\r\n                marginX + checkerSize, marginY + checkerSize, fillPaint);\r\n\r\n        for(int i = 0; i < 8; i++){\r\n            drawColumn(canvas, i);\r\n        }\r\n\r\n        for(CheckerPiece piece : pieces){\r\n            piece.draw(canvas, marginX, marginY, checkerSize, scaleFactor);\r\n        }\r\n\r\n/*\r\n        if (dragging != null) {\r\n            dragging.draw_dragging(canvas, blockSize, xCoordinate, yCoordinate);\r\n        }\r\n        */\r\n\r\n    }\r\n    /*\r\n        public draw_dragging(canvas, blockSize, xCoordinate, yCoordinate) {\r\n            canvas.save();\r\n\r\n            canvas.translate(i, i)\r\n\r\n                    canvas.scale()\r\n        }\r\n    */\r\n    public void drawColumn(Canvas canvas, int columnIndex){\r\n        int wid = canvas.getWidth();\r\n        int hit = canvas.getHeight();\r\n\r\n        // Determine the minimum of the two dimensions\r\n        int minDim = wid < hit ? wid : hit;\r\n\r\n        int puzzleSize = (int)(minDim * SCALE_IN_VIEW);\r\n\r\n        // Compute the margins so we center the puzzle\r\n        int marginX = (wid - puzzleSize) / 2;\r\n        int marginY = (hit - puzzleSize) / 2;\r\n\r\n        for(int i = 0; i< 8; i++){\r\n             int squareCenterXOffset = marginX + columnIndex * puzzleSize/8;\r\n             int squareCenterYOffset = marginY + i * puzzleSize/8;\r\n\r\n             if ((i + columnIndex) % 2 == 0){\r\n                 fillPaint.setColor(darkSquare);\r\n             }\r\n             else{\r\n                 fillPaint.setColor(lightSquare);\r\n             }\r\n\r\n            canvas.drawRect(squareCenterXOffset, squareCenterYOffset,\r\n                    squareCenterXOffset + puzzleSize/8, squareCenterYOffset + puzzleSize/8, fillPaint);\r\n        }\r\n    }\r\n\r\n    private boolean onTouched(float x, float y) {\r\n\r\n        // Check each piece to see if it has been hit\r\n        // We do this in reverse order so we find the pieces in front\r\n        for(int p=pieces.size()-1; p>=0;  p--) {\r\n            if(pieces.get(p).hit(x, y, checkerSize, scaleFactor)) {\r\n                // We hit a piece!\r\n\r\n                //dragging = pieces.get(pieces.size()-1);\r\n                dragging = pieces.get(p);\r\n                lastRelX = x;\r\n                lastRelY = y;\r\n                //PuzzlePiece t = pieces.get(pieces.size()-1);\r\n                //pieces.set(p, t);\r\n                //pieces.set(pieces.size()-1, dragging);\r\n                //pieces.add(pieces.size(), dragging);\r\n                //pieces.remove(p);\r\n                return true;\r\n            }\r\n        }\r\n\r\n        return false;\r\n    }\r\n\r\n\r\n    /*\r\n     * Handle a touch event from the view.\r\n     * @param view The view that is the source of the touch\r\n     * @param event The motion event describing the touch\r\n     * @return true if the touch is handled.\r\n    *\r\n    */\r\n\r\n    public boolean onTouchEvent(View view, MotionEvent event) {\r\n\r\n        // Convert an x,y location to a relative location in the\r\n        // puzzle.\r\n        //\r\n\r\n        float relX = (event.getX() - marginX) / checkerSize;\r\n        float relY = (event.getY() - marginY) / checkerSize;\r\n\r\n        switch (event.getActionMasked()) {\r\n\r\n            case MotionEvent.ACTION_DOWN:\r\n                return onTouched(relX, relY);\r\n\r\n            case MotionEvent.ACTION_UP:\r\n\r\n            case MotionEvent.ACTION_CANCEL:\r\n                return onReleased(view, relX, relY);\r\n\r\n            case MotionEvent.ACTION_MOVE:\r\n                // If we are dragging, move the piece and force a redraw\r\n                if(dragging != null) {\r\n                    //check if valid\r\n                    dragging.move(lastRelX, lastRelY);\r\n                    lastRelX = relX;\r\n                    lastRelY = relY;\r\n                    view.invalidate();\r\n                    return true;\r\n                }\r\n                break;\r\n        }\r\n        return false;\r\n    }\r\n\r\n    /**\r\n     * Handle a release of a touch message.\r\n     * @param x x location for the touch release, relative to the puzzle - 0 to 1 over the puzzle\r\n     * @param y y location for the touch release, relative to the puzzle - 0 to 1 over the puzzle\r\n     * @return true if the touch is handled\r\n     */\r\n    private boolean onReleased(View view, float x, float y) {\r\n\r\n        dragging.move(lastRelX, lastRelY);\r\n        if(dragging != null) {\r\n            dragging = null;\r\n            return true;\r\n        }\r\n\r\n        return false;\r\n    }\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/edu/msu/hagopi10/project1/CheckerBoard.java	(revision 9b33a5de8f53a5f922c225e702f007823741c920)
++++ app/src/main/java/edu/msu/hagopi10/project1/CheckerBoard.java	(date 1604362582433)
+@@ -118,15 +118,17 @@
+ 
+         // Load the checkerboard pieces
+ 
++        pieces.add( new CheckerPiece(context, R.drawable.spartan_green, 12, marginX, marginY, checkerSize) );
++
+         // Load green pieces
+-        for(int i = 0; i<12; i++){
+-            pieces.add(new CheckerPiece(context, R.drawable.spartan_green, i));
+-        }
++        //for(int i = 0; i<12; i++){
++        //    pieces.add(new CheckerPiece(context, R.drawable.spartan_green, i));
++        //}
+ 
+         // Load white pieces
+-        for(int i = 0; i<12; i++){
+-            pieces.add(new CheckerPiece(context, R.drawable.spartan_white, 31-i));
+-        }
++        //for(int i = 0; i<12; i++){
++        //    pieces.add(new CheckerPiece(context, R.drawable.spartan_white, 31-i));
++        //}
+ 
+     }
+ 
+@@ -209,7 +211,7 @@
+         // Check each piece to see if it has been hit
+         // We do this in reverse order so we find the pieces in front
+         for(int p=pieces.size()-1; p>=0;  p--) {
+-            if(pieces.get(p).hit(x, y, checkerSize, scaleFactor)) {
++            if(pieces.get(p).hit(x, y, checkerSize, SCALE_IN_VIEW)) {
+                 // We hit a piece!
+ 
+                 //dragging = pieces.get(pieces.size()-1);
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nbuildscript {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n    dependencies {\r\n        classpath \"com.android.tools.build:gradle:4.0.1\"\r\n\r\n        // NOTE: Do not place your application dependencies here; they belong\r\n        // in the individual module build.gradle files\r\n    }\r\n}\r\n\r\nallprojects {\r\n    repositories {\r\n        google()\r\n        jcenter()\r\n    }\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- build.gradle	(revision 9b33a5de8f53a5f922c225e702f007823741c920)
++++ build.gradle	(date 1604360207163)
+@@ -5,7 +5,7 @@
+         jcenter()
+     }
+     dependencies {
+-        classpath "com.android.tools.build:gradle:4.0.1"
++        classpath 'com.android.tools.build:gradle:4.1.0'
+ 
+         // NOTE: Do not place your application dependencies here; they belong
+         // in the individual module build.gradle files
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_7\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision 9b33a5de8f53a5f922c225e702f007823741c920)
++++ .idea/misc.xml	(date 1604360207193)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+Index: gradle/wrapper/gradle-wrapper.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#Thu Oct 08 13:41:12 EDT 2020\r\ndistributionBase=GRADLE_USER_HOME\r\ndistributionPath=wrapper/dists\r\nzipStoreBase=GRADLE_USER_HOME\r\nzipStorePath=wrapper/dists\r\ndistributionUrl=https\\://services.gradle.org/distributions/gradle-6.1.1-all.zip\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>windows-1252
+===================================================================
+--- gradle/wrapper/gradle-wrapper.properties	(revision 9b33a5de8f53a5f922c225e702f007823741c920)
++++ gradle/wrapper/gradle-wrapper.properties	(date 1604360207249)
+@@ -1,6 +1,6 @@
+-#Thu Oct 08 13:41:12 EDT 2020
++#Mon Nov 02 16:22:04 EST 2020
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-6.1.1-all.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-6.5-bin.zip
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/compiler.xml	(date 1604360207225)
++++ .idea/compiler.xml	(date 1604360207225)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <bytecodeTargetLevel target="1.8" />
++  </component>
++</project>
+\ No newline at end of file
