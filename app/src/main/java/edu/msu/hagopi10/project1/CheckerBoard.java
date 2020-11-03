@@ -122,15 +122,17 @@ public class CheckerBoard {
 
         // Load the checkerboard pieces
 
+        pieces.add( new CheckerPiece(context, R.drawable.spartan_green, 12) );
+
         // Load green pieces
-        for(int i = 0; i<12; i++){
-            pieces.add(new CheckerPiece(context, R.drawable.spartan_green, i));
-        }
+        //for(int i = 0; i<12; i++){
+        //    pieces.add(new CheckerPiece(context, R.drawable.spartan_green, i));
+        //}
 
         // Load white pieces
-        for(int i = 0; i<12; i++){
-            pieces.add(new CheckerPiece(context, R.drawable.spartan_white, 31-i));
-        }
+        //for(int i = 0; i<12; i++){
+        //    pieces.add(new CheckerPiece(context, R.drawable.spartan_white, 31-i));
+        //}
 
     }
 
@@ -159,6 +161,9 @@ public class CheckerBoard {
             drawColumn(canvas, i);
         }
 
+        //
+        // draw the actual pieces
+        //
         for(CheckerPiece piece : pieces){
             piece.draw(canvas, marginX, marginY, checkerSize, scaleFactor);
         }
@@ -215,11 +220,12 @@ public class CheckerBoard {
         // Check each piece to see if it has been hit
         // We do this in reverse order so we find the pieces in front
         for(int p=pieces.size()-1; p>=0;  p--) {
-            if(pieces.get(p).hit(x, y, checkerSize, scaleFactor)) {
+            if(pieces.get(p).hit(x, y, checkerSize, SCALE_IN_VIEW)) {
                 // We hit a piece!
 
                 //dragging = pieces.get(pieces.size()-1);
                 dragging = pieces.get(p);
+                dragging.isGrabbed = true;
                 lastRelX = x;
                 lastRelY = y;
                 //PuzzlePiece t = pieces.get(pieces.size()-1);
@@ -260,7 +266,6 @@ public class CheckerBoard {
                 return onTouched(relX, relY);
 
             case MotionEvent.ACTION_UP:
-
             case MotionEvent.ACTION_CANCEL:
                 return onReleased(view, relX, relY);
 
@@ -274,7 +279,6 @@ public class CheckerBoard {
                     lastRelX = relX;
                     lastRelY = relY;
 
-                    dragging.move(5,5);
                     view.invalidate();
                     return true;
                 }
@@ -291,9 +295,12 @@ public class CheckerBoard {
      */
     private boolean onReleased(View view, float x, float y) {
 
+
         dragging.move(lastRelX, lastRelY);
         if(dragging != null) {
+            dragging.isGrabbed = false;
             dragging = null;
+
             return true;
         }
 

@@ -81,29 +81,29 @@ public class CheckerPiece {
      */
     public int locationIndex;
 
+    /**
+     * True when the piece has been picked up to move
+     */
+    public boolean isGrabbed;
+
+
     public CheckerPiece(Context context, int id, int boardIndex) {
         this.locationIndex = boardIndex;
         this.id = id;
 
         piece = BitmapFactory.decodeResource(context.getResources(), id);
+
     }
 
     public void draw(Canvas canvas, int marginX, int marginY,
                      int puzzleSize, float scaleFactor){
 
-        int xIndex; int yIndex;
-        xIndex = locationIndex%4;
-        yIndex = locationIndex/4;
+        if (!isGrabbed) setLocationFromIndex(locationIndex, marginX, marginY, puzzleSize);
 
         canvas.save();
 
         // Convert x,y to pixels and add the margin, then draw
-        if( yIndex%2 == 0 ){
-            canvas.translate(marginX + xIndex * puzzleSize/4 + puzzleSize/16, marginY + yIndex * puzzleSize/8 + puzzleSize/16);
-        }
-        else{
-            canvas.translate(marginX + xIndex * puzzleSize/4 + puzzleSize * 3/16, marginY + yIndex * puzzleSize/8 + puzzleSize/16);
-        }
+        canvas.translate(x * (puzzleSize + 2*marginX), y * (puzzleSize + 2*marginY));
 
         scaleFactor = (puzzleSize/8.0f)/(float)Math.min(piece.getWidth(), piece.getWidth());
 
@@ -158,4 +158,20 @@ public class CheckerPiece {
         y += dy;
     }
 
+    public void setLocationFromIndex(int index, int marginX, int marginY, int puzzleSize){
+        int xIndex; int yIndex;
+        xIndex = index%4;
+        yIndex = index/4;
+
+        // Convert x,y to pixels and add the margin, then draw
+        if( yIndex%2 == 0 ){
+            x = (float) (marginX + xIndex * puzzleSize/4 + puzzleSize/16) / (float) (puzzleSize + 2*marginX);
+            y = (float) (marginY + yIndex * puzzleSize/8 + puzzleSize/16) / (float) (puzzleSize + 2*marginY);
+        }
+        else{
+            x = (float) (marginX + xIndex * puzzleSize/4 + puzzleSize * 3/16) / (float) (puzzleSize + 2*marginX);
+            y = (float) (marginY + yIndex * puzzleSize/8 + puzzleSize/16) / (float) (puzzleSize + 2*marginY);
+        }
+
+    }
 }
