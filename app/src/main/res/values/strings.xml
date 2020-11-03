@@ -12,5 +12,5 @@
     <string name="gameover">Game Over</string>
     <string name="completed_puzzle"> wins the game</string>
     <string name="forfeit_message">Your Opponent Has Conceded The Match!</string>
-    <string name="new_game">New Game</string>
+    <string name="ng">New Game</string>
 </resources>
