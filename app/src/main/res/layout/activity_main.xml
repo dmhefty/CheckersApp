@@ -55,7 +55,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onStartCheckersActivity"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:text="@string/start_game" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="HowToPlay"
+            android:text="@string/how_to_play" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
