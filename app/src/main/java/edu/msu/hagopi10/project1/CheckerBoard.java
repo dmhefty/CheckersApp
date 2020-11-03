@@ -53,6 +53,10 @@ public class CheckerBoard {
      */
     private int marginY;
 
+    private float xCoordinate;
+
+    private float yCoordinate;
+
     /**
      * Most recent relative X touch when dragging
      */
@@ -159,13 +163,15 @@ public class CheckerBoard {
             piece.draw(canvas, marginX, marginY, checkerSize, scaleFactor);
         }
 
+    }
+
 /*
         if (dragging != null) {
             dragging.draw_dragging(canvas, blockSize, xCoordinate, yCoordinate);
         }
         */
 
-    }
+
     /*
         public draw_dragging(canvas, blockSize, xCoordinate, yCoordinate) {
             canvas.save();
@@ -242,6 +248,8 @@ public class CheckerBoard {
         // Convert an x,y location to a relative location in the
         // puzzle.
         //
+        xCoordinate = event.getX();
+        yCoordinate = event.getY();
 
         float relX = (event.getX() - marginX) / checkerSize;
         float relY = (event.getY() - marginY) / checkerSize;
@@ -260,9 +268,13 @@ public class CheckerBoard {
                 // If we are dragging, move the piece and force a redraw
                 if(dragging != null) {
                     //check if valid
-                    dragging.move(lastRelX, lastRelY);
+                    //dragging.dx = 500;
+                    dragging.move(relX - lastRelX, relY - lastRelY);
+                    //dragging.move(lastRelX, lastRelY);
                     lastRelX = relX;
                     lastRelY = relY;
+
+                    dragging.move(5,5);
                     view.invalidate();
                     return true;
                 }
@@ -290,3 +302,6 @@ public class CheckerBoard {
 
 
 }
+
+
+// test!!!!!

@@ -157,4 +157,5 @@ public class CheckerPiece {
         x += dx;
         y += dy;
     }
+
 }
