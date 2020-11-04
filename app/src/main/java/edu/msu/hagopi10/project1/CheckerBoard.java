@@ -24,7 +24,7 @@ public class CheckerBoard {
     /**
      * Paint for filling the area the checkerboard is in
      */
-    private Paint fillPaint;
+    private final Paint fillPaint;
 
     /**
      * Paint for outlining the area the checkerboard is in
@@ -149,7 +149,7 @@ public class CheckerBoard {
         int hit = canvas.getHeight();
 
         // Determine the minimum of the two dimensions
-        int minDim = wid < hit ? wid : hit;
+        int minDim = Math.min(hit, wid);
 
         checkerSize = (int)(minDim * SCALE_IN_VIEW);
 
@@ -183,7 +183,7 @@ public class CheckerBoard {
         int hit = canvas.getHeight();
 
         // Determine the minimum of the two dimensions
-        int minDim = wid < hit ? wid : hit;
+        int minDim = Math.min(hit, wid);
 
         int puzzleSize = (int)(minDim * SCALE_IN_VIEW);
 
@@ -203,7 +203,7 @@ public class CheckerBoard {
              }
 
             canvas.drawRect(squareCenterXOffset, squareCenterYOffset,
-                    squareCenterXOffset + puzzleSize/8, squareCenterYOffset + puzzleSize/8, fillPaint);
+                    squareCenterXOffset + puzzleSize/8f, squareCenterYOffset + puzzleSize/8f, fillPaint);
         }
     }
 

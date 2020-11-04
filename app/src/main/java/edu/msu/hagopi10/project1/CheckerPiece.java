@@ -206,7 +206,7 @@ public class CheckerPiece {
 
         }
         else{
-            colIndex = (int) ((x*(puzzleSize + 2*marginX) + (puzzleSize* 1/16) - marginX) / (puzzleSize/4));
+            colIndex = (int) ((x*(puzzleSize + 2*marginX) + (puzzleSize/16) - marginX) / (puzzleSize/4));
         }
 
         return rowIndex*4 + colIndex;
@@ -301,6 +301,5 @@ public class CheckerPiece {
     public void kingify(){
         piece = pieceKinged;
         isKing = true;
-        return;
     }
 }

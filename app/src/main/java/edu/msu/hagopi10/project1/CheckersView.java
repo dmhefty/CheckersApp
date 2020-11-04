@@ -187,11 +187,6 @@ public class CheckersView extends View {
     public boolean hitTest(float x, float y) {
         return true;
     }
-    /**
-     * Handle a touch event
-     * @param event The touch event
-     * on release function - check if valid first
-     */
 
     @Override
     public boolean performClick() {
