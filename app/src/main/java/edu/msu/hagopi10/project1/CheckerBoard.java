@@ -306,6 +306,7 @@ public class CheckerBoard {
                 }
             }
             int potentialIndex = dragging.calculateIndex(marginX,  marginY,  checkerSize);
+
             if(dragging.maybeSnap(marginX, marginY, checkerSize)) {
                 // We have snapped into place
 
@@ -411,10 +412,14 @@ public class CheckerBoard {
                 }
 
             }
+            else{
+                // throw toast if no jump is possible
+            }
 
             // determine if the moved piece needs to be kinged
             int row = dragging.locationIndex/4;
-            if(( dragging.access == 1 && row == 7) || (dragging.access == 2 && row == 0)){
+            if(( dragging.access == 1 && row == 7) || (dragging.access == 2 && row == 0)
+             && !dragging.isKing){
                 dragging.kingify();
             }
 
