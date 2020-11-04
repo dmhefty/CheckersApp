@@ -343,57 +343,61 @@ public class CheckerBoard {
                 // check for jump before failure
                 //int potentialIndex = dragging.calculateIndex(marginX,  marginY,  checkerSize);
                 int potentialJumpee = -1;
-                switch(dragging.locationIndex - potentialIndex){
+                switch(potentialIndex - dragging.locationIndex){
 
                     case -7:
                         // if not player 1  or is a king, cannot go backwards
-                        if(!(dragging.access == 1 || dragging.isKing)) break;
+                        if(dragging.access == 1 && !dragging.isKing) break;
+
                         if( (dragging.locationIndex/4)%2 == 0 ){
-                            potentialJumpee = 3;
+                            potentialJumpee = -3;
                         }
                         else{
-                            potentialJumpee = 4;
+                            potentialJumpee = -4;
                         }
                         break;
                     case -9:
                         // if not player 1  or is a king, cannot go backwards
-                        if(!(dragging.access == 1 || dragging.isKing)) break;
+                        if(dragging.access == 1 && !dragging.isKing) break;
+
+                        // either player 2 or is king
+
+                        if( (dragging.locationIndex/4)%2 == 0 ){
+                            potentialJumpee = -4;
+                        }
+                        else{
+                            potentialJumpee = -5;
+                        }
+                        break;
+                    case 7:
+                        // if not player 2  or is a king, cannot go forwards
+                        if(dragging.access == 2 && !dragging.isKing) break;
 
                         if( (dragging.locationIndex/4)%2 == 0 ){
                             potentialJumpee = 4;
                         }
                         else{
-                            potentialJumpee = 5;
-                        }
-                        break;
-                    case 7:
-                        // if not player 2  or is a king, cannot go forwards
-                        if(!(dragging.access == 2 || dragging.isKing)) break;
-
-                        if( (dragging.locationIndex/4)%2 == 0 ){
-                            potentialJumpee = -4;
-                        }
-                        else{
-                            potentialJumpee = -3;
+                            potentialJumpee = 3;
                         }
                         break;
                     case 9:
                         // if not player 1  or is a king, cannot go forwards
-                        if(!(dragging.access == 2 || dragging.isKing)) break;
+                        if(dragging.access == 2 && !dragging.isKing) break;
 
                         if( (dragging.locationIndex/4)%2 == 0 ){
                             // if player 1, use 4 if player 2 use 5
-                            potentialJumpee = -5;
+                            potentialJumpee = 5;
                         }
                         else{
                             // if player 1, use 5 if player 2 use 4
-                            potentialJumpee = -4;
+                            potentialJumpee = 4;
                         }
                         break;
                 }
                 if(!(potentialJumpee == -1)){  // if valid and/or not
                     for(CheckerPiece piece : pieces){
-                        if( ( (dragging.locationIndex + potentialJumpee) == piece.locationIndex))
+                        if( ( (dragging.locationIndex + potentialJumpee) == piece.locationIndex)
+                        && dragging.access != piece.access)
                         {
                             // kill piece
                             pieces.remove(piece);
