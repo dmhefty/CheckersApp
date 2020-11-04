@@ -30,16 +30,20 @@ public class CheckersActivity extends AppCompatActivity {
     }
 
     public void EndTurn(View view) {
+        int ctr1 = 0;
+        int ctr2 = 0;
         CheckersView view1 = (CheckersView)findViewById(R.id.view);
         for(CheckerPiece piece:view1.getBoard().pieces ){
             if(piece.access ==1){
-                score1--;
+                ctr1++;
 
             }else{
-                score2--;
+                ctr2++;
             }
         }
-        if (score1<= 0) {
+        score1 = ctr1;
+        score2 = ctr2;
+        if (ctr1<=0) {
             TextView p2Name = (TextView)findViewById(R.id.player2);
             p2Name.setText(MainActivity.nameS2);
 
@@ -54,7 +58,7 @@ public class CheckersActivity extends AppCompatActivity {
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
-        else if (score2 <= 0) {
+        else if (ctr2 <= 0) {
             TextView playerName = (TextView)findViewById(R.id.player1);
             playerName.setText(MainActivity.nameS1);
 
