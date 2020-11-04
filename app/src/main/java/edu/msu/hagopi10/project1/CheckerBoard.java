@@ -84,6 +84,11 @@ public class CheckerBoard {
     private static Random random = new Random();
 
     /**
+     * determines if a player has made their move
+     */
+    public boolean playerHasMoved = false;
+
+    /**
      * The name of the bundle keys to save the checkerboard
      */
     private final static String LOCATIONS = "checkerboard.locations";
@@ -241,6 +246,8 @@ public class CheckerBoard {
         // Convert an x,y location to a relative location in the
         // puzzle.
         //
+        if(playerHasMoved) return false;
+
         float relX = (event.getX()) / (checkerSize + marginX*2);
         float relY = (event.getY()) / (checkerSize + marginY*2);
 
@@ -279,6 +286,7 @@ public class CheckerBoard {
      * @return true if the touch is handled
      */
     private boolean onReleased(View view, float x, float y) {
+        if(playerHasMoved) return false;
 
         if(dragging != null) {
             for (int p=pieces.size()-1; p>=0;  p--){
@@ -319,7 +327,7 @@ public class CheckerBoard {
 
                     }
                     else{
-                        switchTurn(view);
+                        playerHasMoved = true;
                     }
                 }
                 else{
@@ -335,7 +343,7 @@ public class CheckerBoard {
                 // check for jump before failure
                 //int potentialIndex = dragging.calculateIndex(marginX,  marginY,  checkerSize);
                 int potentialJumpee = -1;
-                switch(dragging.locationIndex - potentialIndex){
+                switch(Math.abs(dragging.locationIndex - potentialIndex)){
                     case 7:
                         if( (dragging.locationIndex/4)%2 == 0 ){
                             // if player 1, use 4 if player 2 use 3
@@ -366,7 +374,7 @@ public class CheckerBoard {
                             pieces.remove(piece);
                             // move dragging
                             dragging.updateIndex(potentialIndex, marginX, marginY, checkerSize);
-                            switchTurn(view);
+                            playerHasMoved = true;
                             break;
                         }
                     }
@@ -393,9 +401,10 @@ public class CheckerBoard {
         return false;
     }
 
-    private void switchTurn(View view){
+    public void switchTurn(View view){
         // swap current player
         activePlayer = activePlayer == 1 ? 2 : 1;
+        playerHasMoved = false;
     }
 
 }

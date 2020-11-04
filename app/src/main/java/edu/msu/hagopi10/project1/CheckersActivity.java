@@ -69,6 +69,9 @@ public class CheckersActivity extends AppCompatActivity {
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
+
+        view1.board.switchTurn(view1);
+
     }
 
     public void Forfeit(View view) {
