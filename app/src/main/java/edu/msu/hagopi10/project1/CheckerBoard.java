@@ -10,6 +10,7 @@ import android.view.View;
 import java.util.Random;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -276,6 +277,7 @@ public class CheckerBoard {
                 }
                 break;
         }
+
         return false;
     }
 
@@ -286,7 +288,15 @@ public class CheckerBoard {
      * @return true if the touch is handled
      */
     private boolean onReleased(View view, float x, float y) {
-        if(playerHasMoved) return false;
+        if(playerHasMoved) {
+            // throw toast if no jump is possible
+            Toast toast=Toast.makeText(view.getContext(),
+                    "Player has already moved. Press done to start next player's turn.",
+                    Toast.LENGTH_SHORT);
+            toast.setMargin(50,50);
+            toast.show();
+            return false;
+        }
 
         if(dragging != null) {
             for (int p=pieces.size()-1; p>=0;  p--){
@@ -332,8 +342,12 @@ public class CheckerBoard {
                     }
                 }
                 else{
-                    // if move fails, reset x and y
-
+                    // throw toast if not possible
+                    Toast toast=Toast.makeText(view.getContext(),
+                            "The location you tried to move to is occupied. Please try again.",
+                            Toast.LENGTH_SHORT);
+                    toast.setMargin(50,50);
+                    toast.show();
 
                 }
 
@@ -400,6 +414,25 @@ public class CheckerBoard {
                         if( ( (dragging.locationIndex + potentialJumpee) == piece.locationIndex)
                         && dragging.access != piece.access)
                         {
+                            // double check final location is not occupied
+                            boolean occupied = false;
+                            for(CheckerPiece finalLocationCheck : pieces){
+                                if(finalLocationCheck.locationIndex  == potentialIndex){
+                                    occupied = true;
+                                    break;
+                                }
+                            }
+                            if(occupied){
+                                // location is occupied
+                                // throw toast if no jump is possible
+                                Toast toast=Toast.makeText(view.getContext(),
+                                        "The location you tried to jump to is invalid. Please try again.",
+                                        Toast.LENGTH_SHORT);
+                                toast.setMargin(50,50);
+                                toast.show();
+                                break;
+                            }
+
                             // kill piece
                             pieces.remove(piece);
                             // move dragging
@@ -407,13 +440,30 @@ public class CheckerBoard {
                             playerHasMoved = true;
                             break;
                         }
+                        else if( ( (dragging.locationIndex + potentialJumpee) == piece.locationIndex)
+                                && dragging.access == piece.access){
+                            // Cannot jump your own piece
+
+                            // throw toast if no jump is possible
+                            Toast toast=Toast.makeText(view.getContext(),
+                                    "Cannot jump your own piece. Please try again.",
+                                    Toast.LENGTH_SHORT);
+                            toast.setMargin(50,50);
+                            toast.show();
+                        }
                     }
 
                 }
+                else{
+                    // impossible move
+                    // throw toast if no jump is possible
+                    Toast toast=Toast.makeText(view.getContext(),
+                            "The move you tried to make is invalid. Please try again.",
+                            Toast.LENGTH_SHORT);
+                    toast.setMargin(50,50);
+                    toast.show();
+                }
 
-            }
-            else{
-                // throw toast if no jump is possible
             }
 
             // determine if the moved piece needs to be kinged
@@ -446,6 +496,7 @@ public class CheckerBoard {
         // swap current player
         activePlayer = activePlayer == 1 ? 2 : 1;
         playerHasMoved = false;
+
     }
 
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CheckersActivity extends AppCompatActivity {
     public int score1 = 12;
@@ -26,6 +27,11 @@ public class CheckersActivity extends AppCompatActivity {
 
         TextView p2Name = (TextView)findViewById(R.id.player2);
         p2Name.setText(MainActivity.nameS2);
+
+        // announce first turn
+        Toast toast=Toast.makeText(getApplicationContext(),MainActivity.nameS1+ "'s Turn", Toast.LENGTH_SHORT);
+        toast.setMargin(50,50);
+        toast.show();
 
     }
 
@@ -75,6 +81,12 @@ public class CheckersActivity extends AppCompatActivity {
         }
 
         view1.board.switchTurn(view1);
+        // inform the players whose turn it is
+        String player = view1.board.getActivePlayer()  == 1 ? Player1.GetName1() : Player2.GetName2();
+
+        Toast toast=Toast.makeText(view.getContext(),player + "'s Turn", Toast.LENGTH_SHORT);
+        toast.setMargin(50,50);
+        toast.show();
 
     }
 
