@@ -17,6 +17,11 @@ public class CheckerPiece {
      */
     private Bitmap piece;
 
+    /**
+     * THe image for the actual piece when kinged
+     */
+    private Bitmap pieceKinged;
+
     public float getX() {
         return x;
     }
@@ -93,12 +98,18 @@ public class CheckerPiece {
      */
     public int access;
 
-    public CheckerPiece(Context context, int id, int boardIndex, int access) {
+    /**
+     * if the piece has been kinged
+     */
+    public boolean isKing = false;
+
+    public CheckerPiece(Context context, int id,  int idKinged, int boardIndex, int access) {
         this.locationIndex = boardIndex;
         this.id = id;
         this.access = access;
 
         piece = BitmapFactory.decodeResource(context.getResources(), id);
+        pieceKinged = BitmapFactory.decodeResource(context.getResources(), idKinged);
 
     }
 
@@ -223,8 +234,8 @@ public class CheckerPiece {
         // if player 1 and piece isn't a king, it must move down
         // if player 2 and piece isn't a king, it must move upward
         if(index >= 0
-                && ((access == 1 && index/4 > locationIndex/4 && (index ==  locationIndex+4 || index == locationIndex+5 || index == locationIndex+3))
-                ||  (access == 2 && index/4 < locationIndex/4 && (index ==  locationIndex-4 || index == locationIndex-5 || index == locationIndex-3))))
+                && (( (access == 1 || isKing) && index/4 > locationIndex/4 && (index ==  locationIndex+4 || index == locationIndex+5 || index == locationIndex+3))
+                ||  ( (access == 2 || isKing) && index/4 < locationIndex/4 && (index ==  locationIndex-4 || index == locationIndex-5 || index == locationIndex-3))))
         {
 
 
@@ -282,5 +293,14 @@ public class CheckerPiece {
         }
 
         return false;
+    }
+
+    /**
+     * Turns this piece into a king
+     */
+    public void kingify(){
+        piece = pieceKinged;
+        isKing = true;
+        return;
     }
 }

@@ -133,12 +133,12 @@ public class CheckerBoard {
 
         //Load green pieces
         for(int i = 0; i<12; i++){
-            pieces.add(new CheckerPiece(context, R.drawable.spartan_green, i, 1));
+            pieces.add(new CheckerPiece(context, R.drawable.spartan_green, R.drawable.king_green, i, 1));
         }
 
          //Load white pieces
         for(int i = 0; i<12; i++){
-            pieces.add(new CheckerPiece(context, R.drawable.spartan_white, 31-i, 2));
+            pieces.add(new CheckerPiece(context, R.drawable.spartan_white, R.drawable.king_white, 31-i, 2));
         }
 
     }
@@ -343,32 +343,57 @@ public class CheckerBoard {
                 // check for jump before failure
                 //int potentialIndex = dragging.calculateIndex(marginX,  marginY,  checkerSize);
                 int potentialJumpee = -1;
-                switch(Math.abs(dragging.locationIndex - potentialIndex)){
-                    case 7:
+                switch(dragging.locationIndex - potentialIndex){
+
+                    case -7:
+                        // if not player 1  or is a king, cannot go backwards
+                        if(!(dragging.access == 1 || dragging.isKing)) break;
                         if( (dragging.locationIndex/4)%2 == 0 ){
-                            // if player 1, use 4 if player 2 use 3
-                            potentialJumpee = dragging.access == 1 ? 4 : 3;
+                            potentialJumpee = 3;
                         }
                         else{
-                            // if player 1, use 3 if player 2 use 4
-                            potentialJumpee = dragging.access == 1 ? 3 : 4;
+                            potentialJumpee = 4;
+                        }
+                        break;
+                    case -9:
+                        // if not player 1  or is a king, cannot go backwards
+                        if(!(dragging.access == 1 || dragging.isKing)) break;
+
+                        if( (dragging.locationIndex/4)%2 == 0 ){
+                            potentialJumpee = 4;
+                        }
+                        else{
+                            potentialJumpee = 5;
+                        }
+                        break;
+                    case 7:
+                        // if not player 2  or is a king, cannot go forwards
+                        if(!(dragging.access == 2 || dragging.isKing)) break;
+
+                        if( (dragging.locationIndex/4)%2 == 0 ){
+                            potentialJumpee = -4;
+                        }
+                        else{
+                            potentialJumpee = -3;
                         }
                         break;
                     case 9:
+                        // if not player 1  or is a king, cannot go forwards
+                        if(!(dragging.access == 2 || dragging.isKing)) break;
+
                         if( (dragging.locationIndex/4)%2 == 0 ){
                             // if player 1, use 4 if player 2 use 5
-                            potentialJumpee = dragging.access == 1 ? 5 : 4;
+                            potentialJumpee = -5;
                         }
                         else{
                             // if player 1, use 5 if player 2 use 4
-                            potentialJumpee = dragging.access == 1 ? 4 : 5;
+                            potentialJumpee = -4;
                         }
                         break;
                 }
                 if(!(potentialJumpee == -1)){  // if valid and/or not
                     for(CheckerPiece piece : pieces){
-                        if( (dragging.access == 1 && (dragging.locationIndex + potentialJumpee) == piece.locationIndex)
-                         || (dragging.access == 2 && (dragging.locationIndex - potentialJumpee) == piece.locationIndex))
+                        if( ( (dragging.locationIndex + potentialJumpee) == piece.locationIndex))
                         {
                             // kill piece
                             pieces.remove(piece);
@@ -382,6 +407,13 @@ public class CheckerBoard {
                 }
 
             }
+
+            // determine if the moved piece needs to be kinged
+            int row = dragging.locationIndex/4;
+            if(( dragging.access == 1 && row == 7) || (dragging.access == 2 && row == 0)){
+                dragging.kingify();
+            }
+
             dragging.isGrabbed = false;
             dragging = null;
 
