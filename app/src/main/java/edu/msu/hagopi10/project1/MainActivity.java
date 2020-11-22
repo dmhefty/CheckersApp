@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
         nameS2 = editText2.getText().toString();
         intent1.putExtra(NAME1,nameS1);
         intent1.putExtra(NAME2,nameS2);
-        Intent intent = new Intent(this, CheckersActivity.class);
-        startActivity(intent);
+         Intent intent = new Intent(this, CheckersActivity.class);
+        startActivity(intent); 
     }
 
         @Override
