@@ -43,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    public void onStartLoad(View view) {
+        Intent intent = new Intent(this, LoadActivity.class);
+       // startActivity(intent);
+    }
+
+
+
     public void onStartCheckersActivity(View view) {
 
         Intent intent1 = new Intent();

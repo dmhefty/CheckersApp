@@ -15,6 +15,7 @@
     <string name="ng">New Game</string>
     <string name="how_to_play">How To Play</string>
     <string name="new_user">New User</string>
+    <string name="load">Waiting for other player</string>
     <string name="explanation">Checkers is a game played by two opponents, on opposite sides of the gameboard. One player has the dark pieces; the other has the light pieces. Players alternate turns. A player may not move an opposing piece. A move consists of moving a piece diagonally to an adjacent unoccupied square. If the adjacent square contains an opposing piece, and the square immediately beyond it is vacant, the piece may be captured (and removed from the game) by jumping over it.
         Only the dark squares of the checkered board are used. A piece may move only diagonally into an unoccupied square. When presented, capturing is mandatory in most official rules, although some rule variations make capturing optional. In almost all variants, the player without pieces remaining, or who cannot move due to being blocked, loses the game.</string>
 </resources>
