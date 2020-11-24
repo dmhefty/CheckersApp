@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Project 1</string>
+    <string name="app_name">Project 2</string>
     <string name="intro_game">Checkers!</string>
-    <string name="start_game">Start Game</string>
-    <string name="NameText">Enter the name of Player 1 and Player 2</string>
+    <string name="start_game">Log In</string>
+    <string name="NameText">Enter login info</string>
     <string name="namebutton">Start</string>
-    <string name="player1">input player 1 name</string>
-    <string name="player2">input player 2 name</string>
-    <string name="entername">Submit Names</string>
+    <string name="player1">input username</string>
+    <string name="player2">input password</string>
+    <string name="entername">Submit Login Info</string>
     <string name="endturn">Done</string>
     <string name="Forfeit">Resign</string>
     <string name="gameover">Game Over</string>
@@ -14,6 +14,8 @@
     <string name="forfeit_message">Your Opponent Has Conceded The Match!</string>
     <string name="ng">New Game</string>
     <string name="how_to_play">How To Play</string>
+    <string name="new_user">New User</string>
+    <string name="load">Waiting for other player</string>
     <string name="explanation">Checkers is a game played by two opponents, on opposite sides of the gameboard. One player has the dark pieces; the other has the light pieces. Players alternate turns. A player may not move an opposing piece. A move consists of moving a piece diagonally to an adjacent unoccupied square. If the adjacent square contains an opposing piece, and the square immediately beyond it is vacant, the piece may be captured (and removed from the game) by jumping over it.
         Only the dark squares of the checkered board are used. A piece may move only diagonally into an unoccupied square. When presented, capturing is mandatory in most official rules, although some rule variations make capturing optional. In almost all variants, the player without pieces remaining, or who cannot move due to being blocked, loses the game.</string>
 </resources>

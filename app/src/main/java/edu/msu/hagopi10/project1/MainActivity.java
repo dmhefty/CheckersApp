@@ -43,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    public void onStartLoad(View view) {
+        Intent intent = new Intent(this, LoadActivity.class);
+       // startActivity(intent);
+    }
+
+
+
     public void onStartCheckersActivity(View view) {
 
         Intent intent1 = new Intent();
@@ -52,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
         nameS2 = editText2.getText().toString();
         intent1.putExtra(NAME1,nameS1);
         intent1.putExtra(NAME2,nameS2);
-        Intent intent = new Intent(this, CheckersActivity.class);
-        startActivity(intent);
+         Intent intent = new Intent(this, CheckersActivity.class);
+        startActivity(intent); 
     }
 
         @Override
