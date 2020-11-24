@@ -20,7 +20,7 @@ public class CheckersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checkers);
+        setContentView(R.layout.activity_end_game);
 
         TextView playerName = (TextView)findViewById(R.id.player1);
         playerName.setText(MainActivity.nameS1);
