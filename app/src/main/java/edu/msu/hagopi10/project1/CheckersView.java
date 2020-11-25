@@ -1,20 +1,14 @@
 package edu.msu.hagopi10.project1;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.text.TextPaint;
-import android.text.method.Touch;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.io.Serializable;
-import java.security.Policy;
 
 
 /**
@@ -33,28 +27,28 @@ public class CheckersView extends View {
     /**
      * First touch status
      */
-    private Touch touch1 = new Touch();
+    private final Touch touch1 = new Touch();
 
-    private Parameters params = new Parameters();
+    private final Parameters params = new Parameters();
 
     /**
      * The image bitmap. None initially.
      */
-    private Bitmap imageBitmap = null;
+    private final Bitmap imageBitmap = null;
     /**
      * Image drawing scale
      */
-    private float imageScale = 1;
+    private final float imageScale = 1;
 
     /**
      * Image left margin in pixels
      */
-    private float marginLeft = 0;
+    private final float marginLeft = 0;
 
     /**
      * Image top margin in pixels
      */
-    private float marginTop = 0;
+    private final float marginTop = 0;
 
     private static class Parameters implements Serializable {
         /**
