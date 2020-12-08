@@ -50,13 +50,8 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-<<<<<<< HEAD
-    public void onStartLoad(View view) {
-        Intent intent = new Intent(this, LoadActivity.class);
-=======
     public void onNewUser(View view) {
         Intent intent = new Intent(this, NewUserActivity.class);
->>>>>>> 91f68437352c9b792547ad6d4d8c1245d58af771
         startActivity(intent);
     }
 
