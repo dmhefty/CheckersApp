@@ -8,6 +8,7 @@
     <string name="passwordInput">input password</string>
     <string name="enterName">Submit Login Info</string>
     <string name="endturn">Done</string>
+    <string name="back">Back</string>
     <string name="Forfeit">Resign</string>
     <string name="gameover">Game Over</string>
     <string name="completed_puzzle"> wins the game</string>

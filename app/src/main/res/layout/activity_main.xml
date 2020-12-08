@@ -52,18 +52,18 @@
             app:layout_constraintVertical_bias="0.779"></EditText>
 
         <Button
-            android:id="@+id/newUserButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onNewUser"
-            android:text="@string/new_user" />
-
-        <Button
             android:id="@+id/logInUserButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onStartLogIn"
             android:text="@string/logInUser" />
+
+        <Button
+            android:id="@+id/newUserButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onNewUser"
+            android:text="@string/new_user" />
 
         <Button
             android:id="@+id/howToPlayButton"
