@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onStartLoad(View view) {
         Intent intent = new Intent(this, LoadActivity.class);
-        //startActivity(intent);
+        startActivity(intent);
     }
 
     public void onStartLogIn(View view) {
