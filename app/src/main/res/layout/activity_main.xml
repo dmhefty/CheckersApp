@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="onStartCheckersActivity"
+    android:onClick="onStartLogIn"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -16,6 +16,7 @@
         tools:layout_editor_absoluteY="-53dp">
 
         <TextView
+            android:id="@+id/checkersTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -23,11 +24,11 @@
             android:textSize="30sp" />
 
         <EditText
-            android:id="@+id/PLAYER1NAME"
-            android:layout_width="360dp"
+            android:id="@+id/usernameTextBox"
+            android:layout_width="363dp"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:hint="@string/player1"
+            android:hint="@string/usernameInput"
             android:inputType="text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -37,12 +38,12 @@
             app:layout_constraintVertical_bias="0.645"></EditText>
 
         <EditText
-            android:id="@+id/PLAYER2NAME"
+            android:id="@+id/passwordTextBox"
             android:layout_width="363dp"
             android:layout_height="wrap_content"
             android:autofillHints=""
-            android:hint="@string/player2"
-            android:inputType="text"
+            android:hint="@string/passwordInput"
+            android:inputType="textPassword"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -51,23 +52,21 @@
             app:layout_constraintVertical_bias="0.779"></EditText>
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/newUserButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onStartLoad"
+            android:onClick="onNewUser"
             android:text="@string/new_user" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/logInUserButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onStartLogIn"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="@string/start_game" />
+            android:text="@string/logInUser" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/howToPlayButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="HowToPlay"

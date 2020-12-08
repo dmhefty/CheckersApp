@@ -1,15 +1,10 @@
 package edu.msu.hagopi10.project1;
 
 import android.content.Context;
-import android.database.CrossProcessCursorWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import java.util.Random;
 import android.graphics.Paint;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 public class CheckerPiece {
     /**
@@ -20,7 +15,7 @@ public class CheckerPiece {
     /**
      * THe image for the actual piece when kinged
      */
-    private Bitmap pieceKinged;
+    private final Bitmap pieceKinged;
 
     public float getX() {
         return x;
@@ -45,7 +40,7 @@ public class CheckerPiece {
     /**
      * The piece ID
      */
-    private int id;
+    private final int id;
 
     /**
      * x location.
@@ -206,7 +201,7 @@ public class CheckerPiece {
 
         }
         else{
-            colIndex = (int) ((x*(puzzleSize + 2*marginX) + (puzzleSize* 1/16) - marginX) / (puzzleSize/4));
+            colIndex = (int) ((x*(puzzleSize + 2*marginX) + (puzzleSize/16) - marginX) / (puzzleSize/4));
         }
 
         return rowIndex*4 + colIndex;
@@ -239,9 +234,7 @@ public class CheckerPiece {
         {
 
 
-            if (isValid(index)) {
-                return true;
-            }
+            return isValid(index);
 
         }
 
@@ -253,10 +246,7 @@ public class CheckerPiece {
      * @return true if snapped into place
      */
     public boolean isSnapped() {
-        if (x == finalX && y == finalY) {
-            return true;
-        }
-        return false;
+        return x == finalX && y == finalY;
     }
 
     /**z
@@ -286,9 +276,7 @@ public class CheckerPiece {
         {
 
 
-            if (isValid(index)) {
-                return true;
-            }
+            return isValid(index);
 
         }
 
@@ -301,6 +289,5 @@ public class CheckerPiece {
     public void kingify(){
         piece = pieceKinged;
         isKing = true;
-        return;
     }
 }

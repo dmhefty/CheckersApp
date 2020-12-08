@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,13 +19,15 @@ public class CheckersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_end_game);
+        setContentView(R.layout.activity_checkers);
 
         TextView playerName = (TextView)findViewById(R.id.player1);
-        playerName.setText(MainActivity.nameS1);
+        //playerName.setText(MainActivity.nameS1);
+        playerName.setText("Player1");
 
         TextView p2Name = (TextView)findViewById(R.id.player2);
-        p2Name.setText(MainActivity.nameS2);
+        //p2Name.setText(MainActivity.nameS2);
+        p2Name.setText("Player2");
 
         // announce first turn
         Toast toast=Toast.makeText(getApplicationContext(),MainActivity.nameS1+ "'s Turn", Toast.LENGTH_SHORT);

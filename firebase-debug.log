@@ -1,0 +1,334 @@
+[debug] [2020-11-24T15:13:39.080Z] ----------------------------------------------------------------------
+[debug] [2020-11-24T15:13:39.082Z] Command:       E:\Downloads\firebase-tools-instant-win.exe C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\bin\firebase init
+[debug] [2020-11-24T15:13:39.082Z] CLI Version:   8.16.2
+[debug] [2020-11-24T15:13:39.082Z] Platform:      win32
+[debug] [2020-11-24T15:13:39.083Z] Node Version:  v12.18.1
+[debug] [2020-11-24T15:13:39.083Z] Time:          Tue Nov 24 2020 10:13:39 GMT-0500 (Eastern Standard Time)
+[debug] [2020-11-24T15:13:39.083Z] ----------------------------------------------------------------------
+[debug] [2020-11-24T15:13:39.083Z] 
+[debug] [2020-11-24T15:13:39.088Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-24T15:13:39.089Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  E:\School Stuff\CSE476\project1
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2020-11-24T15:14:45.892Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-11-24T15:14:45.892Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-11-24T15:14:46.063Z] <<< HTTP RESPONSE 200 {"date":"Tue, 24 Nov 2020 15:14:46 GMT","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-24T15:14:46.071Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects  
+ {"projectId":"project2-firebase","name":"checkersApp"}
+[debug] [2020-11-24T15:14:46.366Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Tue, 24 Nov 2020 15:14:46 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=192","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-24T15:14:46.368Z] > refreshing access token with scopes: []
+[debug] [2020-11-24T15:14:46.368Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-11-24T15:14:46.477Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Tue, 24 Nov 2020 15:14:46 GMT","pragma":"no-cache","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-24T15:14:46.488Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 [none]
+[debug] [2020-11-24T15:14:46.965Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 200
+[debug] [2020-11-24T15:14:46.965Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 {"name":"operations/cp.5196471236920284038"}
+[debug] [2020-11-24T15:14:47.475Z] [Project Creation Poller] Retrying task index 0
+[debug] [2020-11-24T15:14:47.475Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 [none]
+[debug] [2020-11-24T15:14:47.841Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 200
+[debug] [2020-11-24T15:14:47.841Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 {"name":"operations/cp.5196471236920284038"}
+[debug] [2020-11-24T15:14:48.843Z] [Project Creation Poller] Retrying task index 0
+[debug] [2020-11-24T15:14:48.843Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 [none]
+[debug] [2020-11-24T15:14:49.226Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 200
+[debug] [2020-11-24T15:14:49.226Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 {"name":"operations/cp.5196471236920284038","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true}}
+[debug] [2020-11-24T15:14:51.227Z] [Project Creation Poller] Retrying task index 0
+[debug] [2020-11-24T15:14:51.227Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 [none]
+[debug] [2020-11-24T15:14:51.595Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 200
+[debug] [2020-11-24T15:14:51.595Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/cp.5196471236920284038 {"name":"operations/cp.5196471236920284038","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true,"ready":true},"done":true,"response":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.Project","projectNumber":"1097276927935","projectId":"project2-firebase","lifecycleState":"ACTIVE","name":"checkersApp","createTime":"2020-11-24T15:14:46.582Z"}}
+[debug] [2020-11-24T15:14:51.596Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-11-24T15:14:51.596Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-11-24T15:14:51.742Z] <<< HTTP RESPONSE 200 {"expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","date":"Tue, 24 Nov 2020 15:14:52 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-24T15:14:51.753Z] >>> HTTP REQUEST POST https://firebase.googleapis.com/v1beta1/projects/project2-firebase:addFirebase  
+ 
+[debug] [2020-11-24T15:14:53.227Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Tue, 24 Nov 2020 15:14:53 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-24T15:14:53.228Z] > refreshing access token with scopes: []
+[debug] [2020-11-24T15:14:53.228Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-11-24T15:14:53.348Z] <<< HTTP RESPONSE 200 {"date":"Tue, 24 Nov 2020 15:14:53 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-24T15:14:53.360Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw [none]
+[debug] [2020-11-24T15:14:53.763Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw 200
+[debug] [2020-11-24T15:14:53.764Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw {"name":"operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw"}
+[debug] [2020-11-24T15:14:54.266Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2020-11-24T15:14:54.267Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw [none]
+[debug] [2020-11-24T15:14:54.663Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw 200
+[debug] [2020-11-24T15:14:54.663Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw {"name":"operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw"}
+[debug] [2020-11-24T15:14:55.673Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2020-11-24T15:14:55.673Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw [none]
+[debug] [2020-11-24T15:14:55.963Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw 200
+[debug] [2020-11-24T15:14:55.963Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw {"name":"operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw"}
+[debug] [2020-11-24T15:14:57.974Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2020-11-24T15:14:57.974Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw [none]
+[debug] [2020-11-24T15:14:58.365Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw 200
+[debug] [2020-11-24T15:14:58.366Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw {"name":"operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw"}
+[debug] [2020-11-24T15:15:02.370Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2020-11-24T15:15:02.370Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw [none]
+[debug] [2020-11-24T15:15:02.669Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw 200
+[debug] [2020-11-24T15:15:02.669Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw {"name":"operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw"}
+[debug] [2020-11-24T15:15:10.674Z] [Add Firebase Poller] Retrying task index 0
+[debug] [2020-11-24T15:15:10.674Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw [none]
+[debug] [2020-11-24T15:15:10.990Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw 200
+[debug] [2020-11-24T15:15:10.990Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw {"name":"operations/workflows/NTU0NTIxZjEtOGVlOC00Nzc2LWI4NWEtNWU5NTVlOWYzMDEw","done":true,"response":{"@type":"type.googleapis.com/google.firebase.service.v1beta1.FirebaseProject","projectId":"project2-firebase","projectNumber":"1097276927935","displayName":"checkersApp","name":"projects/project2-firebase","resources":{"hostingSite":"project2-firebase","realtimeDatabaseInstance":"project2-firebase"}}}
+[info] 
+[info] === Your Firebase project is ready! ===
+[info] 
+[info] Project information:
+[info]    - Project ID: project2-firebase
+[info]    - Project Name: checkersApp
+[info] 
+[info] Firebase console is available at
+[info] https://console.firebase.google.com/project/project2-firebase/overview
+[info] i  Using project project2-firebase (checkersApp) 
+[info] 
+=== Database Setup
+[info] 
+[info] Firebase Realtime Database Rules allow you to define how your data should be
+[info] structured and when your data can be read from and written to.
+[info] 
+[debug] [2020-11-24T15:16:16.769Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2020-11-24T15:16:16.769Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2020-11-24T15:16:16.899Z] <<< HTTP RESPONSE 200 {"date":"Tue, 24 Nov 2020 15:16:17 GMT","pragma":"no-cache","expires":"Mon, 01 Jan 1990 00:00:00 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-24T15:16:16.906Z] >>> HTTP REQUEST GET https://project2-firebase.firebaseio.com/.settings/rules.json  
+ 
+[debug] [2020-11-24T15:16:17.356Z] <<< HTTP RESPONSE 200 {"server":"nginx","date":"Tue, 24 Nov 2020 15:16:17 GMT","content-type":"application/json; charset=utf-8","content-length":"161","connection":"keep-alive","access-control-allow-origin":"*","cache-control":"no-cache","strict-transport-security":"max-age=31556926; includeSubDomains; preload"}
+[info] +  Database Rules for project2-firebase have been downloaded to database.rules.json. 
+[info] Future modifications to database.rules.json will update Database Rules when you run
+[info] firebase deploy.
+[info] 
+=== Hosting Setup
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2020-11-24T15:16:28.776Z] >>> HTTP REQUEST GET https://www.gstatic.com/firebasejs/releases.json  
+ 
+[debug] [2020-11-24T15:16:28.892Z] <<< HTTP RESPONSE 200 {"accept-ranges":"bytes","vary":"Accept-Encoding, Origin","content-type":"application/json","cross-origin-resource-policy":"cross-origin","content-length":"1411","date":"Tue, 24 Nov 2020 15:16:29 GMT","expires":"Tue, 24 Nov 2020 16:06:29 GMT","last-modified":"Fri, 20 Nov 2020 01:53:31 GMT","x-content-type-options":"nosniff","server":"sffe","x-xss-protection":"0","cache-control":"public, max-age=3000","age":"0","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""}
+[info] +  Wrote public/index.html 
+[info] 
+[info] i  Detected a .git folder at E:\School Stuff\CSE476\project1 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=26804709&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2020-11-24T15:20:36.292Z] ----------------------------------------------------------------------
+[debug] [2020-11-24T15:20:36.294Z] Command:       E:\Downloads\firebase-tools-instant-win.exe C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\bin\firebase init
+[debug] [2020-11-24T15:20:36.294Z] CLI Version:   8.16.2
+[debug] [2020-11-24T15:20:36.294Z] Platform:      win32
+[debug] [2020-11-24T15:20:36.294Z] Node Version:  v12.18.1
+[debug] [2020-11-24T15:20:36.295Z] Time:          Tue Nov 24 2020 10:20:36 GMT-0500 (Eastern Standard Time)
+[debug] [2020-11-24T15:20:36.295Z] ----------------------------------------------------------------------
+[debug] [2020-11-24T15:20:36.295Z] 
+[debug] [2020-11-24T15:20:36.300Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-24T15:20:36.301Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  E:\School Stuff\CSE476\project1
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2020-11-24T15:21:11.835Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects  
+ {"projectId":"Project2-firebase","name":"checkersAppDatabase"}
+[debug] [2020-11-24T15:21:12.006Z] <<< HTTP RESPONSE 400 {"vary":"X-Origin, Referer, Origin,Accept-Encoding","content-type":"application/json; charset=UTF-8","date":"Tue, 24 Nov 2020 15:21:12 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=55","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-24T15:21:12.006Z] <<< HTTP RESPONSE BODY {"error":{"code":400,"message":"field [project_id] has issue [project_id contains invalid characters]","status":"INVALID_ARGUMENT","details":[{"@type":"type.googleapis.com/google.rpc.BadRequest","fieldViolations":[{"field":"project_id","description":"project_id contains invalid characters"}]},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"url":"https://cloud.google.com/resource-manager/reference/rest/v1/projects"}]}]}}
+[debug] [2020-11-24T15:21:12.133Z] FirebaseError: HTTP Error: 400, field [project_id] has issue [project_id contains invalid characters]
+    at module.exports (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\api.js:41:35)
+    at Request.self.callback (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:315:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at Request.<anonymous> (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:1154:10)
+    at Request.emit (events.js:315:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at IncomingMessage.<anonymous> (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:1076:12)
+    at Object.onceWrapper (events.js:421:28)
+    at IncomingMessage.emit (events.js:327:22)
+    at IncomingMessage.EventEmitter.emit (domain.js:482:12)
+    at endReadableNT (_stream_readable.js:1221:12)
+    at processTicksAndRejections (internal/process/task_queues.js:84:21)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.
+[debug] [2020-11-24T15:21:20.979Z] ----------------------------------------------------------------------
+[debug] [2020-11-24T15:21:20.981Z] Command:       E:\Downloads\firebase-tools-instant-win.exe C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\bin\firebase init
+[debug] [2020-11-24T15:21:20.981Z] CLI Version:   8.16.2
+[debug] [2020-11-24T15:21:20.981Z] Platform:      win32
+[debug] [2020-11-24T15:21:20.982Z] Node Version:  v12.18.1
+[debug] [2020-11-24T15:21:20.982Z] Time:          Tue Nov 24 2020 10:21:20 GMT-0500 (Eastern Standard Time)
+[debug] [2020-11-24T15:21:20.982Z] ----------------------------------------------------------------------
+[debug] [2020-11-24T15:21:20.982Z] 
+[debug] [2020-11-24T15:21:20.987Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-24T15:21:20.988Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  E:\School Stuff\CSE476\project1
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2020-11-24T15:21:48.907Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects  
+ {"projectId":"Project2-firebase-database","name":"newCheckersApp"}
+[debug] [2020-11-24T15:21:49.055Z] <<< HTTP RESPONSE 400 {"vary":"X-Origin, Referer, Origin,Accept-Encoding","content-type":"application/json; charset=UTF-8","date":"Tue, 24 Nov 2020 15:21:49 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=44","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-24T15:21:49.055Z] <<< HTTP RESPONSE BODY {"error":{"code":400,"message":"field [project_id] has issue [project_id contains invalid characters]","status":"INVALID_ARGUMENT","details":[{"@type":"type.googleapis.com/google.rpc.BadRequest","fieldViolations":[{"field":"project_id","description":"project_id contains invalid characters"}]},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"url":"https://cloud.google.com/resource-manager/reference/rest/v1/projects"}]}]}}
+[debug] [2020-11-24T15:21:49.155Z] FirebaseError: HTTP Error: 400, field [project_id] has issue [project_id contains invalid characters]
+    at module.exports (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\api.js:41:35)
+    at Request.self.callback (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:315:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at Request.<anonymous> (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:1154:10)
+    at Request.emit (events.js:315:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at IncomingMessage.<anonymous> (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:1076:12)
+    at Object.onceWrapper (events.js:421:28)
+    at IncomingMessage.emit (events.js:327:22)
+    at IncomingMessage.EventEmitter.emit (domain.js:482:12)
+    at endReadableNT (_stream_readable.js:1221:12)
+    at processTicksAndRejections (internal/process/task_queues.js:84:21)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.
+[debug] [2020-11-24T15:32:41.648Z] ----------------------------------------------------------------------
+[debug] [2020-11-24T15:32:41.650Z] Command:       E:\Downloads\firebase-tools-instant-win.exe C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\bin\firebase init
+[debug] [2020-11-24T15:32:41.650Z] CLI Version:   8.16.2
+[debug] [2020-11-24T15:32:41.651Z] Platform:      win32
+[debug] [2020-11-24T15:32:41.651Z] Node Version:  v12.18.1
+[debug] [2020-11-24T15:32:41.651Z] Time:          Tue Nov 24 2020 10:32:41 GMT-0500 (Eastern Standard Time)
+[debug] [2020-11-24T15:32:41.651Z] ----------------------------------------------------------------------
+[debug] [2020-11-24T15:32:41.652Z] 
+[debug] [2020-11-24T15:32:41.656Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-24T15:32:41.657Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  E:\School Stuff\CSE476\project1
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2020-11-24T15:33:21.763Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects  
+ {"projectId":"firebase-project1","name":"checkersAppFinal"}
+[debug] [2020-11-24T15:33:22.006Z] <<< HTTP RESPONSE 409 {"vary":"X-Origin, Referer, Origin,Accept-Encoding","content-type":"application/json; charset=UTF-8","date":"Tue, 24 Nov 2020 15:33:23 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=132","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-24T15:33:22.007Z] <<< HTTP RESPONSE BODY {"error":{"code":409,"message":"Requested entity already exists","status":"ALREADY_EXISTS"}}
+[debug] [2020-11-24T15:33:22.174Z] FirebaseError: HTTP Error: 409, Requested entity already exists
+    at module.exports (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\api.js:41:35)
+    at Request.self.callback (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:315:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at Request.<anonymous> (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:1154:10)
+    at Request.emit (events.js:315:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at IncomingMessage.<anonymous> (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:1076:12)
+    at Object.onceWrapper (events.js:421:28)
+    at IncomingMessage.emit (events.js:327:22)
+    at IncomingMessage.EventEmitter.emit (domain.js:482:12)
+    at endReadableNT (_stream_readable.js:1221:12)
+    at processTicksAndRejections (internal/process/task_queues.js:84:21)
+[error] 
+[error] Error: Failed to create project because there is already a project with ID firebase-project1. Please try again with a unique project ID.
+[debug] [2020-11-24T15:33:29.797Z] ----------------------------------------------------------------------
+[debug] [2020-11-24T15:33:29.799Z] Command:       E:\Downloads\firebase-tools-instant-win.exe C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\bin\firebase init
+[debug] [2020-11-24T15:33:29.799Z] CLI Version:   8.16.2
+[debug] [2020-11-24T15:33:29.799Z] Platform:      win32
+[debug] [2020-11-24T15:33:29.800Z] Node Version:  v12.18.1
+[debug] [2020-11-24T15:33:29.800Z] Time:          Tue Nov 24 2020 10:33:29 GMT-0500 (Eastern Standard Time)
+[debug] [2020-11-24T15:33:29.800Z] ----------------------------------------------------------------------
+[debug] [2020-11-24T15:33:29.801Z] 
+[debug] [2020-11-24T15:33:29.805Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-11-24T15:33:29.806Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  E:\School Stuff\CSE476\project1
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2020-11-24T15:34:05.050Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects  
+ {"projectId":"firebase-project2-newProject","name":"project2DB"}
+[debug] [2020-11-24T15:34:05.193Z] <<< HTTP RESPONSE 400 {"vary":"X-Origin, Referer, Origin,Accept-Encoding","content-type":"application/json; charset=UTF-8","date":"Tue, 24 Nov 2020 15:34:06 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=43","alt-svc":"h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-11-24T15:34:05.193Z] <<< HTTP RESPONSE BODY {"error":{"code":400,"message":"field [project_id] has issue [project_id contains invalid characters]","status":"INVALID_ARGUMENT","details":[{"@type":"type.googleapis.com/google.rpc.BadRequest","fieldViolations":[{"field":"project_id","description":"project_id contains invalid characters"}]},{"@type":"type.googleapis.com/google.rpc.Help","links":[{"url":"https://cloud.google.com/resource-manager/reference/rest/v1/projects"}]}]}}
+[debug] [2020-11-24T15:34:05.293Z] FirebaseError: HTTP Error: 400, field [project_id] has issue [project_id contains invalid characters]
+    at module.exports (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\responseToError.js:38:12)
+    at Request._callback (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\firebase-tools\lib\api.js:41:35)
+    at Request.self.callback (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:315:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at Request.<anonymous> (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:1154:10)
+    at Request.emit (events.js:315:20)
+    at Request.EventEmitter.emit (domain.js:482:12)
+    at IncomingMessage.<anonymous> (C:\Users\Dmhef\.cache\firebase\tools\lib\node_modules\request\request.js:1076:12)
+    at Object.onceWrapper (events.js:421:28)
+    at IncomingMessage.emit (events.js:327:22)
+    at IncomingMessage.EventEmitter.emit (domain.js:482:12)
+    at endReadableNT (_stream_readable.js:1221:12)
+    at processTicksAndRejections (internal/process/task_queues.js:84:21)
+[error] 
+[error] Error: Failed to create project. See firebase-debug.log for more info.

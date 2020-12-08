@@ -9,7 +9,6 @@ import android.view.View;
 
 import java.util.Random;
 
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -24,13 +23,12 @@ public class CheckerBoard {
     /**
      * Paint for filling the area the checkerboard is in
      */
-    private Paint fillPaint;
+    private final Paint fillPaint;
 
     /**
      * Paint for outlining the area the checkerboard is in
      */
-    private Paint outlinePaint;
-    
+    private final Paint outlinePaint;
 
     /**
      * The size of the checkerboard in pixels
@@ -82,7 +80,7 @@ public class CheckerBoard {
     /**
      * Random number generator
      */
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     /**
      * determines if a player has made their move
@@ -98,12 +96,12 @@ public class CheckerBoard {
     /**
      * Paint color we will use to draw dark checker squares
      */
-    private int darkSquare = 0xff779455;
+    private final int darkSquare = 0xff779455;
 
     /**
      * Paint color we will use to draw light checker squares
      */
-    private int lightSquare = 0xffebebd0;
+    private final int lightSquare = 0xffebebd0;
 
     /**
      * Current player to make a move
@@ -149,7 +147,7 @@ public class CheckerBoard {
         int hit = canvas.getHeight();
 
         // Determine the minimum of the two dimensions
-        int minDim = wid < hit ? wid : hit;
+        int minDim = Math.min(hit, wid);
 
         checkerSize = (int)(minDim * SCALE_IN_VIEW);
 
@@ -183,7 +181,7 @@ public class CheckerBoard {
         int hit = canvas.getHeight();
 
         // Determine the minimum of the two dimensions
-        int minDim = wid < hit ? wid : hit;
+        int minDim = Math.min(hit, wid);
 
         int puzzleSize = (int)(minDim * SCALE_IN_VIEW);
 
@@ -203,7 +201,7 @@ public class CheckerBoard {
              }
 
             canvas.drawRect(squareCenterXOffset, squareCenterYOffset,
-                    squareCenterXOffset + puzzleSize/8, squareCenterYOffset + puzzleSize/8, fillPaint);
+                    squareCenterXOffset + puzzleSize/8f, squareCenterYOffset + puzzleSize/8f, fillPaint);
         }
     }
 
@@ -488,8 +486,7 @@ public class CheckerBoard {
      * @return true if puzzle is done
      */
     public boolean isDone() {
-        if (pieces.isEmpty()) return true;
-        return false;
+        return pieces.isEmpty();
     }
 
     public void switchTurn(View view){
