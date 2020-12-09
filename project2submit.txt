@@ -1,0 +1,44 @@
+
+Project 2 Submission
+
+Group Name:   Team 6
+
+When you have completed the project, complete the following form and include it with your project. Include this file as a text file in the folder with your project when you turn it in. 
+
+For the Checkpoint, Describe a sequence of operations to create a new account and log onto the server:
+
+A functionality checklist will not be provided for the project. Treat this as you would a request from a client and identify what the client requires. 
+
+Member 1: Sean Mulka
+
+Responsiblity: ability to create a user
+
+
+
+Member 2: Steve Hagopian
+
+Responsiblity: Opening activity and new user Activity
+
+
+
+Member 3: David Hefty
+
+Responsiblity: ability for the user to log into the system
+
+
+<! NOTE !> Some of the stuff may say "Project 1" but that is just because we leveraged the stuff from project 1. This is a project 2 submission. </! NOTE !>
+
+Provide instructions on how to reach the first editing activity if the login button is not yet functional:
+***go to home screen, create a new user from the "new user" button (returns you to home when finished), log in with new credentials, checkers game is started.
+
+User account the server-side communications is running under:
+*** Firebase server for the data: https://console.firebase.google.com/project/cse476-project2-2222/database/cse476-project2-2222/data
+*** email David Hefty (heftydav@msu.edu) if you have issues connecting/need to get into the database
+
+
+Paths to all server-side scripts: (Such as https://www.cse.msu.edu/~carter/project2/login.php):
+*** Didn't end up needing any scripts as of now. Handled information on the client side
+
+Calls in the code to the server (provide a class name and function, or URL used for debugging):
+*** server was called in "MainActivity.onStartLogIn" where the data was pulled down from the server to evaluate a login attempt.
+*** server was called in "NewUserActivity.onSave" where a new user account was pushed up to the server.
