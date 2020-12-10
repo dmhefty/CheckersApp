@@ -21,9 +21,9 @@ public class NewUserActivity extends AppCompatActivity {
         String password = ((EditText) findViewById(R.id.newPasswordEditText)).getText().toString();
         String passConfirmation = ((EditText) findViewById(R.id.confirmPasswordEditText)).getText().toString();
 
-        if (password.length() < 8) {
+        if (password.length() < 2) {
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "Password is too short. Must be at least 8 characters. Try again.",
+                    "Password is too short. Must be at least 2 characters. Try again.",
                     Toast.LENGTH_SHORT);
             toast.setMargin(50, 50);
             toast.show();

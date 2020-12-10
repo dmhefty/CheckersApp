@@ -8,6 +8,12 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.Serializable;
 
 
@@ -210,6 +216,38 @@ public class CheckersView extends View {
         }
 
         invalidate();
+    }
+
+    public void SetupGame(){
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference boardStateRef = rootRef.child("boardState").child("activePlayers");
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                CheckersView view1 = (CheckersView)findViewById(R.id.view);
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String player = ds.getKey();
+                    String name = (String) ds.getValue();
+                    if(player.equals("Player1") && name.equals("None")){
+                        boardStateRef.child("Player1").setValue(MainActivity.nameS1);
+                        view1.board.lockBoard = false;
+                        break;
+                    }
+                    else if(player.equals("Player2") && name.equals("None")){
+                        boardStateRef.child("Player2").setValue(MainActivity.nameS1);
+                        view1.board.lockBoard = true;
+                        boardStateRef.getParent().child("turn").setValue(1);
+                        break;
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        boardStateRef.addListenerForSingleValueEvent(valueEventListener);
     }
 
     public CheckerBoard getBoard() {

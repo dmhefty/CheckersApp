@@ -28,12 +28,12 @@ public Player( int access, float score1){
             this.name1 = MainActivity.nameS1;
             playerCtr++;
         }
+
         if(playerCtr ==1){
             this.score = score1;
             this.access2 = access;
             this.name2 = MainActivity.nameS2;
         }
-
 
     }
 

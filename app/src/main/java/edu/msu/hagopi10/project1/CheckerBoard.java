@@ -12,6 +12,9 @@ import java.util.Random;
 import android.widget.Toast;
 
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 /**
@@ -85,7 +88,7 @@ public class CheckerBoard {
     /**
      * determines if a player has made their move
      */
-    public boolean playerHasMoved = false;
+    public boolean playerHasMoved = true;
 
     /**
      * The name of the bundle keys to save the checkerboard
@@ -110,6 +113,10 @@ public class CheckerBoard {
      * Starts game with player 1
      */
     private int activePlayer = 1;
+
+    public boolean lockBoard = false;
+
+    public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
     public int getActivePlayer() {
         return activePlayer;
@@ -246,6 +253,14 @@ public class CheckerBoard {
         // puzzle.
         //
         if(playerHasMoved) return false;
+        if(lockBoard){
+            Toast toast=Toast.makeText(view.getContext(),
+                    "Wait for other player to move",
+                    Toast.LENGTH_SHORT);
+            toast.setMargin(50,50);
+            toast.show();
+            return false;
+        }
 
         float relX = (event.getX()) / (checkerSize + marginX*2);
         float relY = (event.getY()) / (checkerSize + marginY*2);
@@ -492,6 +507,11 @@ public class CheckerBoard {
     public void switchTurn(View view){
         // swap current player
         activePlayer = activePlayer == 1 ? 2 : 1;
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference turnDBRef = rootRef.child("boardState").child("turn");
+        turnDBRef.setValue(activePlayer);
+
         playerHasMoved = false;
 
     }
