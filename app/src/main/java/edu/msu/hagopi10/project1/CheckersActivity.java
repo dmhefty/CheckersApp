@@ -10,11 +10,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +48,8 @@ public class CheckersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_checkers);
 
         final CheckersView view = findViewById(R.id.view);
+        view.p1NameView = findViewById(R.id.player1);
+        view.p2NameView = findViewById(R.id.player2);
 
         view.SetupGame();
         waitForSetupFinish();
@@ -128,11 +125,6 @@ public class CheckersActivity extends AppCompatActivity {
 
         view1.board.switchTurn(view1);
 
-        TextView tView = findViewById(R.id.player2);
-        tView.setText(tView.getText() + Integer.toString(view1.board.getActivePlayer()));
-        // inform the players whose turn it is
-        //String player = view1.board.getActivePlayer() == 1 ? Player1.GetName1() : Player2.GetName2();
-
 
     }
 
@@ -140,7 +132,7 @@ public class CheckersActivity extends AppCompatActivity {
 
     public void waitForSetupFinish() {
         waitCounter++;
-        CheckersView view =  findViewById(R.id.view);
+        CheckersView view = findViewById(R.id.view);
         if(view.hasReset){ // if the dialogue is open let it stay
             finish();
         }
@@ -151,11 +143,6 @@ public class CheckersActivity extends AppCompatActivity {
             refresh(1000);
         }
         else{
-            TextView player1Name = findViewById(R.id.player1);
-            player1Name.setText(view.player1Name);
-
-            TextView player2Name = findViewById(R.id.player2);
-            player2Name.setText(view.player2Name);
 
             // announce first turn
             Toast toast=Toast.makeText(getApplicationContext(),MainActivity.nameS1+ "'s Turn", Toast.LENGTH_SHORT);
@@ -177,30 +164,6 @@ public class CheckersActivity extends AppCompatActivity {
         };
 
         handler.postDelayed(runnable, milliseconds);
-    }
-
-    private void sendNotification(JSONObject notification) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(FCM_API, notification,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(CheckersActivity.this, "Request error", Toast.LENGTH_LONG).show();
-                    }
-                }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", serverKey);
-                params.put("Content-Type", contentType);
-                return params;
-            }
-        };
-        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     public void ResetDB(){

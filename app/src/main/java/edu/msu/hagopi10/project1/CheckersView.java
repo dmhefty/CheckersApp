@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -63,6 +64,9 @@ public class CheckersView extends View {
      * Image top margin in pixels
      */
     private final float marginTop = 0;
+    public TextView p1NameView;
+
+    public TextView p2NameView;
 
     public int playerNum = 0;
 
@@ -134,6 +138,7 @@ public class CheckersView extends View {
          * Change in y value from previous
          */
         public float dY = 0;
+
         /**
          * Copy the current values to the previous values
          */
@@ -245,8 +250,7 @@ public class CheckersView extends View {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 CheckersView view1 = findViewById(R.id.view);
-                //player1Name = (String) dataSnapshot.child("Player1").child("name").getValue();
-                //player2Name = (String) dataSnapshot.child("Player2").child("name").getValue();
+
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     String player = ds.getKey();
@@ -274,7 +278,10 @@ public class CheckersView extends View {
                         view1.board.otherPlayersMove = true;
                         view1.board.hasOtherPlayerConnected = true;
                         view1.board.playerNumber = 2;
-                        // TODO send message to other player to say we have connected; title: checkers ; message: the other player is connected
+
+                        p1NameView.setText((String) dataSnapshot.child("Player1").child("name").getValue());
+                        p2NameView.setText(MainActivity.nameS1);
+
                         boardStateRef.getParent().child("turn").setValue(1);
                         board.waitForOtherPlayer(view1);
 
@@ -332,6 +339,21 @@ public class CheckersView extends View {
             board.otherPlayersMove = false;
             if(loadingBox.isShowing())
             {
+                ValueEventListener nameEventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String p1name = (String) dataSnapshot.child("Player1").child("name").getValue();
+                        String p2name = (String) dataSnapshot.child("Player2").child("name").getValue();
+
+                        p1NameView.setText(p1name);
+                        p2NameView.setText(p2name);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                };
+                boardStateRef.addListenerForSingleValueEvent(nameEventListener);
+
                 loadingBox.dismiss();
             }
         }
