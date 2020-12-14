@@ -4,6 +4,7 @@ package edu.msu.hagopi10.project1;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -12,10 +13,15 @@ import java.util.Random;
 import android.widget.Toast;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class represents our checkerboard.
@@ -88,7 +94,11 @@ public class CheckerBoard {
     /**
      * determines if a player has made their move
      */
-    public boolean playerHasMoved = true;
+    public boolean playerHasMoved = false;
+    public int playerNumber = 0;
+
+    public int turnStart = -1;
+    public int turnEnd = -1;
 
     /**
      * The name of the bundle keys to save the checkerboard
@@ -114,7 +124,13 @@ public class CheckerBoard {
      */
     private int activePlayer = 1;
 
-    public boolean lockBoard = false;
+    public boolean otherPlayersMove = true;
+    public boolean hasOtherPlayerConnected = false;
+    public int otherPlayerWaitToastCount = 0;
+
+    public long lastDBCheck = 0;
+
+    public ArrayList<Integer> otherPlayerLastMove = new ArrayList<>();
 
     public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -132,10 +148,7 @@ public class CheckerBoard {
         outlinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         outlinePaint.setColor(0xffcccccc);
 
-
         // Load the checkerboard pieces
-
-        //pieces.add( new CheckerPiece(context, R.drawable.spartan_green, 12) );
 
         //Load green pieces
         for(int i = 0; i<12; i++){
@@ -146,6 +159,8 @@ public class CheckerBoard {
         for(int i = 0; i<12; i++){
             pieces.add(new CheckerPiece(context, R.drawable.spartan_white, R.drawable.king_white, 31-i, 2));
         }
+
+        //sendTurnToDB(11, 16);
 
     }
 
@@ -246,14 +261,13 @@ public class CheckerBoard {
      * @return true if the touch is handled.
     *
     */
-
     public boolean onTouchEvent(View view, MotionEvent event) {
 
         // Convert an x,y location to a relative location in the
         // puzzle.
         //
         if(playerHasMoved) return false;
-        if(lockBoard){
+        if(otherPlayersMove){
             Toast toast=Toast.makeText(view.getContext(),
                     "Wait for other player to move",
                     Toast.LENGTH_SHORT);
@@ -328,7 +342,12 @@ public class CheckerBoard {
                     }
                 }
             }
+
+            int ogIndex = dragging.locationIndex;
             int potentialIndex = dragging.calculateIndex(marginX,  marginY,  checkerSize);
+
+            turnStart = ogIndex;
+            turnEnd = potentialIndex;
 
             if(dragging.maybeSnap(marginX, marginY, checkerSize)) {
                 // We have snapped into place
@@ -450,6 +469,7 @@ public class CheckerBoard {
                             pieces.remove(piece);
                             // move dragging
                             dragging.updateIndex(potentialIndex, marginX, marginY, checkerSize);
+                            sendTurnToDB(ogIndex, potentialIndex);
                             playerHasMoved = true;
                             break;
                         }
@@ -496,6 +516,177 @@ public class CheckerBoard {
         return false;
     }
 
+    public void executeOtherPlayerTurn(View view, int start, int end){
+        CheckerPiece movedPiece = new CheckerPiece(view.getContext(), 0,0,0,0);
+        for (CheckerPiece piece : pieces){
+            if(piece.locationIndex == start){
+                movedPiece = piece;
+                break;
+            }
+        }
+
+
+        if(movedPiece != null) {
+
+            int ogIndex = movedPiece.locationIndex;
+            int potentialIndex = end;
+
+
+
+            if (movedPiece.updateIndexForOtherPlayerMove(end, marginX, marginY, checkerSize)) {
+                // We have snapped into place
+
+                // check if there is  a  piece in the way
+                boolean locationOccupied = false;
+                //int potentialIndex = movedPiece.calculateIndex(marginX,  marginY,  checkerSize);
+                for (CheckerPiece piece : pieces) {
+                    if (piece.locationIndex == potentialIndex) {
+                        locationOccupied = true;
+                        break;
+                    }
+                }
+
+                if (!locationOccupied) {
+                    movedPiece.updateIndex(potentialIndex, marginX, marginY, checkerSize);
+
+                    if (isDone()) {
+                        // The puzzle is done
+
+                    } else {
+                        playerHasMoved = true;
+                        sendTurnToDB(ogIndex, potentialIndex);
+                    }
+                } else {
+                    // throw toast if not possible
+                    Toast toast = Toast.makeText(view.getContext(),
+                            "The location you tried to move to is occupied. Please try again.",
+                            Toast.LENGTH_SHORT);
+                    toast.setMargin(50, 50);
+                    toast.show();
+
+                }
+
+
+                view.invalidate();
+            } else if (!(potentialIndex < 0 || potentialIndex > 31)) {
+                // check for jump before failure
+                //int potentialIndex = movedPiece.calculateIndex(marginX,  marginY,  checkerSize);
+                int potentialJumpee = -1;
+                switch (potentialIndex - movedPiece.locationIndex) {
+
+                    case -7:
+                        // if not player 1  or is a king, cannot go backwards
+                        if (movedPiece.access == 1 && !movedPiece.isKing) break;
+
+                        if ((movedPiece.locationIndex / 4) % 2 == 0) {
+                            potentialJumpee = -3;
+                        } else {
+                            potentialJumpee = -4;
+                        }
+                        break;
+                    case -9:
+                        // if not player 1  or is a king, cannot go backwards
+                        if (movedPiece.access == 1 && !movedPiece.isKing) break;
+
+                        // either player 2 or is king
+
+                        if ((movedPiece.locationIndex / 4) % 2 == 0) {
+                            potentialJumpee = -4;
+                        } else {
+                            potentialJumpee = -5;
+                        }
+                        break;
+                    case 7:
+                        // if not player 2  or is a king, cannot go forwards
+                        if (movedPiece.access == 2 && !movedPiece.isKing) break;
+
+                        if ((movedPiece.locationIndex / 4) % 2 == 0) {
+                            potentialJumpee = 4;
+                        } else {
+                            potentialJumpee = 3;
+                        }
+                        break;
+                    case 9:
+                        // if not player 1  or is a king, cannot go forwards
+                        if (movedPiece.access == 2 && !movedPiece.isKing) break;
+
+                        if ((movedPiece.locationIndex / 4) % 2 == 0) {
+                            // if player 1, use 4 if player 2 use 5
+                            potentialJumpee = 5;
+                        } else {
+                            // if player 1, use 5 if player 2 use 4
+                            potentialJumpee = 4;
+                        }
+                        break;
+                }
+                if (!(potentialJumpee == -1)) {  // if valid and/or not
+                    for (CheckerPiece piece : pieces) {
+                        if (((movedPiece.locationIndex + potentialJumpee) == piece.locationIndex)
+                                && movedPiece.access != piece.access) {
+                            // double check final location is not occupied
+                            boolean occupied = false;
+                            for (CheckerPiece finalLocationCheck : pieces) {
+                                if (finalLocationCheck.locationIndex == potentialIndex) {
+                                    occupied = true;
+                                    break;
+                                }
+                            }
+                            if (occupied) {
+                                // location is occupied
+                                // throw toast if no jump is possible
+                                Toast toast = Toast.makeText(view.getContext(),
+                                        "The location you tried to jump to is invalid. Please try again.",
+                                        Toast.LENGTH_SHORT);
+                                toast.setMargin(50, 50);
+                                toast.show();
+                                break;
+                            }
+
+                            // kill piece
+                            pieces.remove(piece);
+                            // move movedPiece
+                            movedPiece.updateIndex(potentialIndex, marginX, marginY, checkerSize);
+                            sendTurnToDB(ogIndex, potentialIndex);
+                            playerHasMoved = true;
+                            break;
+                        } else if (((movedPiece.locationIndex + potentialJumpee) == piece.locationIndex)
+                                && movedPiece.access == piece.access) {
+                            // Cannot jump your own piece
+
+                            // throw toast if no jump is possible
+                            Toast toast = Toast.makeText(view.getContext(),
+                                    "Cannot jump your own piece. Please try again.",
+                                    Toast.LENGTH_SHORT);
+                            toast.setMargin(50, 50);
+                            toast.show();
+                        }
+                    }
+
+                } else {
+                    // impossible move
+                    // throw toast if no jump is possible
+                    Toast toast = Toast.makeText(view.getContext(),
+                            "The move you tried to make is invalid. Please try again.",
+                            Toast.LENGTH_SHORT);
+                    toast.setMargin(50, 50);
+                    toast.show();
+                }
+
+            }
+
+            // determine if the moved piece needs to be kinged
+            int row = movedPiece.locationIndex / 4;
+            if ((movedPiece.access == 1 && row == 7) || (movedPiece.access == 2 && row == 0)
+                    && !movedPiece.isKing) {
+                movedPiece.kingify();
+            }
+
+            movedPiece.isGrabbed = false;
+
+            view.invalidate();
+        }
+    }
+
     /**
      * Determine if the puzzle is done!
      * @return true if puzzle is done
@@ -504,7 +695,7 @@ public class CheckerBoard {
         return pieces.isEmpty();
     }
 
-    public void switchTurn(View view){
+    public void switchTurn(final View view) throws InterruptedException {
         // swap current player
         activePlayer = activePlayer == 1 ? 2 : 1;
 
@@ -513,7 +704,81 @@ public class CheckerBoard {
         turnDBRef.setValue(activePlayer);
 
         playerHasMoved = false;
-
+        otherPlayersMove = true;
+        waitForOtherPlayer(view);
     }
+
+    public void waitForOtherPlayer(View view) {
+        otherPlayerWaitToastCount++;
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference boardStateRef = rootRef.child("boardState");
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Long turnValue = (Long) dataSnapshot.child("turn").getValue();
+                if(turnValue == null) return;
+                if(turnValue == playerNumber){
+                    otherPlayerLastMove = new ArrayList<>();
+                    otherPlayerLastMove.add(Integer.parseInt((String) dataSnapshot.child("lastMove").child("0").getValue()));
+                    otherPlayerLastMove.add(Integer.parseInt((String) dataSnapshot.child("lastMove").child("1").getValue()));
+                    otherPlayersMove = false;
+                    playerHasMoved = false;
+
+                    activePlayer = playerNumber;
+                }
+                else if(turnValue == 0){
+                    // TODO other player reset
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        boardStateRef.addListenerForSingleValueEvent(valueEventListener);
+
+        if (otherPlayersMove && (otherPlayerWaitToastCount%4 == 0)){
+            Toast toast = Toast.makeText(view.getContext(),
+                    "Waiting for other player's move.",
+                    Toast.LENGTH_SHORT);
+            toast.setMargin(50, 50);
+            toast.show();
+            refreshForTurn( 1000, view );
+            view.invalidate();
+        }
+        else if(otherPlayersMove){
+            refreshForTurn( 1000, view );
+        }
+        else{
+            executeOtherPlayerTurn(view, otherPlayerLastMove.get(0), otherPlayerLastMove.get(1));
+            otherPlayerLastMove = new ArrayList<>();
+            otherPlayerWaitToastCount = 0;
+
+        }
+    }
+
+    public void refreshForTurn(int milliseconds, final View view) {
+
+        final Handler handler = new Handler();
+
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                waitForOtherPlayer(view);
+            }
+        };
+
+        handler.postDelayed(runnable, milliseconds);
+    }
+
+    public void sendTurnToDB(int start, int end){
+    ArrayList<String> move = new ArrayList<>();
+    move.add(Integer.toString(start));
+    move.add(Integer.toString(end));
+
+    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+    final DatabaseReference turnDBRef = rootRef.child("boardState").child("lastMove");
+    turnDBRef.setValue(move);
+    }
+
 
 }

@@ -193,7 +193,7 @@ public class CheckerPiece {
 
         int colIndex; int rowIndex;
         //gets row (y) index
-        rowIndex = (int) (((float) ((y)*(puzzleSize + 2*marginY) - marginY) / (float) (puzzleSize/8)));
+        rowIndex = (int) ((((y)*(puzzleSize + 2*marginY) - marginY) / (float) (puzzleSize/8)));
 
         // find column (x) index based on if it should be shifted over
         if( rowIndex%2 == 0 ){
@@ -222,6 +222,27 @@ public class CheckerPiece {
      */
     public boolean maybeSnap(int marginX, int marginY, int puzzleSize) {
 
+
+        int index = calculateIndex(marginX, marginY, puzzleSize);
+
+        // location must be greater than 0
+        // if player 1 and piece isn't a king, it must move down
+        // if player 2 and piece isn't a king, it must move upward
+        if(index >= 0
+                && (( (access == 1 || isKing) && index/4 > locationIndex/4 && (index ==  locationIndex+4 || index == locationIndex+5 || index == locationIndex+3))
+                ||  ( (access == 2 || isKing) && index/4 < locationIndex/4 && (index ==  locationIndex-4 || index == locationIndex-5 || index == locationIndex-3))))
+        {
+
+
+            return isValid(index);
+
+        }
+
+        return false;
+    }
+
+    public Boolean updateIndexForOtherPlayerMove(int newIndex, int marginX, int marginY, int puzzleSize){
+        setLocationFromIndex(newIndex, marginX, marginY, puzzleSize);
 
         int index = calculateIndex(marginX, marginY, puzzleSize);
 

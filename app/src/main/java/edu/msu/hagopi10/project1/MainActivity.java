@@ -4,13 +4,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,11 +36,30 @@ public class MainActivity extends AppCompatActivity {
     public static String nameS1;
     public static String nameS2;
     public static DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    public static String REFRESH_DATA_INTENT = "edu.msu.hagopi10.project1.refreshdata";
+    public static String MESSAGE_FROM = "edu.msu.hagopi10.project1.messagefrom";
+    public static String MESSAGE_BODY = "edu.msu.hagopi10.project1.messagebody";
+    private DataUpdateReceiver dataUpdateReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (dataUpdateReceiver != null) unregisterReceiver(dataUpdateReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+        if (dataUpdateReceiver == null) dataUpdateReceiver = new DataUpdateReceiver();
+        IntentFilter intentFilter = new IntentFilter(MainActivity.REFRESH_DATA_INTENT);
+        registerReceiver(dataUpdateReceiver, intentFilter);
     }
 
     public void HowToPlay(View view) {
@@ -82,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
     public void onStartCheckersActivity() {
 
         Intent intent1 = new Intent();
-        EditText editText1 = (EditText) findViewById(R.id.usernameTextBox);
-        EditText editText2 = (EditText) findViewById(R.id.passwordTextBox);
+        EditText editText1 = findViewById(R.id.usernameTextBox);
+        EditText editText2 = findViewById(R.id.passwordTextBox);
         nameS1 = editText1.getText().toString();
         nameS2 = editText2.getText().toString();
         intent1.putExtra(NAME1,nameS1);
@@ -128,4 +155,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //
+    // subclass
+    //
+
+    private class DataUpdateReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(MainActivity.REFRESH_DATA_INTENT)) {
+                // Do stuff - maybe update my view based on the changed DB contents
+                String from = intent.getStringExtra(MESSAGE_FROM);
+                String body = intent.getStringExtra(MESSAGE_BODY);
+
+                Toast toast = new Toast(context);
+                toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+    }
 }

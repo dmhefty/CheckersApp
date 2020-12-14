@@ -22,4 +22,6 @@
     <string name="newUserText">New User:</string>
     <string name="saveNewUser">Save</string>
     <string name="passwordConfirmation">confirm password</string>
+    <string name="resetDBokay">Okay</string>
+    <string name="resetDBMessage">A game is currently in progress. Would you like to start over and clear the active game? \n(This will require logging in again)</string>
 </resources>
